@@ -18,8 +18,8 @@
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
 
-<!--        <mapping class="ru.job4j.cars.entity.Brand" />-->
-<!--        <mapping class="ru.job4j.cars.entity.Brand" />-->
+        <mapping class="ru.job4j.cars.entity.Brand" />
+        <mapping class="ru.job4j.cars.entity.Model" />
         <mapping class="ru.job4j.cars.mtom.Book" />
         <mapping class="ru.job4j.cars.mtom.Author" />
 

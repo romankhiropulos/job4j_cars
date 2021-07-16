@@ -12,6 +12,10 @@ public class Model {
 
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
     public static Model of(String name) {
         Model model = new Model();
         model.name = name;

@@ -14,7 +14,7 @@ public class Brand {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "brand")
     private List<Model> models = new ArrayList<>();
 
     public static Brand of(String name) {
