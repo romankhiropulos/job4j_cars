@@ -13,6 +13,13 @@ import java.util.List;
 
 public class HbmRun {
 
+    /**
+     * В данном случае с помощью join fetch мы изменим стратегию загрузки связанных сущностей прямо в запросе к БД.
+     * Это один из способов избежать проблему (LazyInitializationException), связаную с попыткой получить доступ
+     * к вложенному объекту вне текущей сессии, с которой ассоциирован этот объект, и поэтому за пределами сессии
+     * он уже становится недоступен.
+     * @param args
+     */
     public static void main(String[] args) {
         List<Brand> list = new ArrayList<>();
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -21,7 +28,7 @@ public class HbmRun {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
             Session session = sf.openSession();
             session.beginTransaction();
-            list = session.createQuery("from Brand").list();
+            list = session.createQuery("select distinct b from Brand b join fetch b.models").list();
             session.getTransaction().commit();
             session.close();
         }  catch (Exception e) {
