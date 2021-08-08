@@ -3,8 +3,8 @@ package ru.job4j.cars.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "model")
-public class Model {
+@Table(name = "transmission")
+public class Transmission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,13 +12,8 @@ public class Model {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
-
-    public Model(String name, Brand brand) {
+    public Transmission(String name) {
         this.name = name;
-        this.brand = brand;
     }
 
     public int getId() {
@@ -46,12 +41,12 @@ public class Model {
             return false;
         }
 
-        Model model = (Model) o;
+        Transmission that = (Transmission) o;
 
-        if (id != model.id) {
+        if (id != that.id) {
             return false;
         }
-        return name.equals(model.name);
+        return name.equals(that.name);
     }
 
     @Override

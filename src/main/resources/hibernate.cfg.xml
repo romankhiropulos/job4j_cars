@@ -20,6 +20,14 @@
 
         <mapping class="ru.job4j.cars.entity.Brand" />
         <mapping class="ru.job4j.cars.entity.Model" />
+        <mapping class="ru.job4j.cars.entity.Car" />
+        <mapping class="ru.job4j.cars.entity.Advertisement" />
+        <mapping class="ru.job4j.cars.entity.User" />
+        <mapping class="ru.job4j.cars.entity.Transmission" />
+        <mapping class="ru.job4j.cars.entity.Driver" />
+        <mapping class="ru.job4j.cars.entity.Engine" />
+        <mapping class="ru.job4j.cars.entity.BodyType" />
+
         <mapping class="ru.job4j.cars.mtom.Book" />
         <mapping class="ru.job4j.cars.mtom.Author" />
 
