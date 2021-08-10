@@ -15,17 +15,28 @@ public class Car {
 
     private int mileage;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @ManyToOne
+    @JoinColumn(name = "model_id")
     private Model model;
 
+    @ManyToOne
+    @JoinColumn(name = "engine_id")
     private Engine engine;
 
+    @ManyToOne
+    @JoinColumn(name = "body_type_id")
     private BodyType bodyType;
 
-    private List<Driver> drivers;
+    @ManyToOne
+    @JoinColumn(name = "transmission_id")
+    private Transmission transmission;
 
-//    private
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Driver> drivers;
 
 
 }
