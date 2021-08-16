@@ -14,8 +14,12 @@ public class Advertisement {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User owner;
 
+    @OneToOne
+    @JoinColumn(name = "car_id")
     private Car car;
 
     private boolean sold;

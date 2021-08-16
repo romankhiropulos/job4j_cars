@@ -17,6 +17,13 @@ public class Brand {
     @OneToMany(mappedBy = "brand")
     private List<Model> models = new ArrayList<>();
 
+    public Brand() {
+    }
+
+    public Brand(String name) {
+        this.name = name;
+    }
+
     public static Brand of(String name) {
         Brand brand = new Brand();
         brand.name = name;

@@ -12,14 +12,12 @@ public class Engine {
 
     private String type;
 
-    private int power;
+    public Engine() {
 
-    private int size;
+    }
 
-    public Engine(String type, int power, int size) {
+    public Engine(String type) {
         this.type = type;
-        this.power = power;
-        this.size = size;
     }
 
     public int getId() {
@@ -38,22 +36,6 @@ public class Engine {
         this.type = type;
     }
 
-    public int getPower() {
-        return power;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -68,12 +50,6 @@ public class Engine {
         if (id != engine.id) {
             return false;
         }
-        if (power != engine.power) {
-            return false;
-        }
-        if (size != engine.size) {
-            return false;
-        }
         return type.equals(engine.type);
     }
 
@@ -81,8 +57,6 @@ public class Engine {
     public int hashCode() {
         int result = id;
         result = 31 * result + type.hashCode();
-        result = 31 * result + power;
-        result = 31 * result + size;
         return result;
     }
 }

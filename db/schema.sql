@@ -33,9 +33,7 @@ CREATE TABLE model
 CREATE TABLE engine
 (
     id    SERIAL PRIMARY KEY,
-    type  VARCHAR NOT NULL,
-    power INT     NOT NULL,
-    size  INT     NOT NULL
+    type  VARCHAR NOT NULL
 );
 
 CREATE TABLE body_type
@@ -55,11 +53,13 @@ CREATE TABLE car
     id              SERIAL PRIMARY KEY,
     year            INT NOT NULL,
     mileage         INT NOT NULL,
-    brand_id        INT NOT NULL UNIQUE REFERENCES brand (id),
-    model_id        INT NOT NULL UNIQUE REFERENCES model (id),
-    engine_id       INT NOT NULL UNIQUE REFERENCES engine (id),
-    body_type_id    INT NOT NULL UNIQUE REFERENCES body_type (id),
-    transmission_id INT NOT NULL UNIQUE REFERENCES transmission (id)
+    power           INT NOT NULL,
+    size            INT NOT NULL,
+    brand_id        INT NOT NULL REFERENCES brand (id),
+    model_id        INT NOT NULL REFERENCES model (id),
+    engine_id       INT NOT NULL REFERENCES engine (id),
+    body_type_id    INT NOT NULL REFERENCES body_type (id),
+    transmission_id INT NOT NULL REFERENCES transmission (id)
 );
 
 CREATE TABLE driver

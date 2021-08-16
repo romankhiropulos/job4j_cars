@@ -12,6 +12,9 @@ public class BodyType {
 
     private String name;
 
+    public BodyType() {
+    }
+
     public BodyType(String name) {
         this.name = name;
     }

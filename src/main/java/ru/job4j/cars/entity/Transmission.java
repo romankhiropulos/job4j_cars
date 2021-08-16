@@ -12,6 +12,9 @@ public class Transmission {
 
     private String name;
 
+    public Transmission() {
+    }
+
     public Transmission(String name) {
         this.name = name;
     }

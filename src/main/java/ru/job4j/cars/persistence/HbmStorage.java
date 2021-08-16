@@ -7,6 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import ru.job4j.cars.entity.Car;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,11 +28,48 @@ public class HbmStorage implements Storage, AutoCloseable {
         return Lazy.INST;
     }
 
-        @Override
+    @Override
     public void close() throws Exception {
         StandardServiceRegistryBuilder.destroy(registry);
     }
-//
+
+    @Override
+    public Car findCarById(int id) throws SQLException {
+        return tx(
+                session -> {
+                    final Query query = session.createQuery(
+                            "from ru.job4j.cars.entity.Car where id =: car_id"
+                    );
+                    query.setParameter("car_id", id);
+                    List cars = query.list();
+                    return cars.size() == 1 ? (Car) query.list().get(0) : null;
+                }
+        );
+    }
+
+    @Override
+    public Car saveCar(Car car) throws SQLException {
+        Integer generateIdentifier = (Integer) tx(session -> session.save(car));
+        car.setId(generateIdentifier);
+        return car;
+    }
+
+    private <T> T tx(final Function<Session, T> command) {
+        final Session session = sf.openSession();
+        final Transaction tx = session.beginTransaction();
+        try {
+            T rsl = command.apply(session);
+            tx.commit();
+            return rsl;
+        } catch (final Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    //
 //    @Override
 //    public Item saveItem(Item item) throws SQLException {
 //        Integer generateIdentifier = (Integer) tx(session -> session.save(item));

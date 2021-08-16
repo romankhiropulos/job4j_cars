@@ -18,6 +18,7 @@ public class User {
 
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Advertisement> advertisements;
 
     public User(String login, String password, String name) {
@@ -71,6 +72,10 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addAdvertisement(Advertisement advertisement) {
+        advertisements.add(advertisement);
     }
 
     @Override
