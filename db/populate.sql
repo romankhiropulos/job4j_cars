@@ -4,30 +4,30 @@ DELETE FROM engine;
 DELETE FROM body_type;
 DELETE FROM transmission;
 
-INSERT INTO transmission (name)
-VALUES ('Автомат'),
-       ('Вариатор'),
-       ('Механика'),
-       ('Робот');
+INSERT INTO transmission (id, name)
+VALUES (1, 'Автомат'),
+       (2, 'Вариатор'),
+       (3, 'Механика'),
+       (4, 'Робот');
 
-INSERT INTO body_type (name)
-VALUES ('Седан'),
-       ('Хетчбэк'),
-       ('Универсал'),
-       ('Кабриолет'),
-       ('Купе'),
-       ('Внедорожник'),
-       ('Фургон'),
-       ('Минивэн'),
-       ('Пикап'),
-       ('Микроавтобус');
+INSERT INTO body_type (id, name)
+VALUES (1, 'Седан'),
+       (2, 'Хетчбэк'),
+       (3, 'Универсал'),
+       (4, 'Кабриолет'),
+       (5, 'Купе'),
+       (6, 'Внедорожник'),
+       (7, 'Фургон'),
+       (8, 'Минивэн'),
+       (9, 'Пикап'),
+       (10, 'Микроавтобус');
 
-INSERT INTO engine (type)
-VALUES ('Бензин'),
-       ('Газ'),
-       ('Электро'),
-       ('Дизель'),
-       ('Гибрид');
+INSERT INTO engine (id, type)
+VALUES (1, 'Бензин'),
+       (2, 'Газ'),
+       (3, 'Электро'),
+       (4, 'Дизель'),
+       (5, 'Гибрид');
 
 INSERT INTO brand (id, name)
 VALUES (1, 'Mercedes-Benz'),
@@ -55,5 +55,26 @@ VALUES (1, 'M3', 2),
        (15, 'Polo', 5),
        (16, 'Challenger', 6),
        (17, 'Charger', 6);
+
+INSERT INTO driver (id, name)
+VALUES (1, 'M3'),
+       (2, 'Z4'),
+       (3, 'X5');
+
+INSERT INTO car (id,
+                 year,
+                 mileage,
+                 power,
+                 size,
+                 brand_id,
+                 model_id,
+                 engine_id,
+                 body_type_id,
+                 transmission_id)
+VALUES (1, 2020, 6000, 350, 2.6, 1, 2, 1, 1, 1),
+       (2, 2018, 33000, 250, 2.1, 2, 3, 1, 1, 1),
+       (3, 2015, 233000, 150, 1.8, 3, 7, 1, 1, 1);
+
+
 
 

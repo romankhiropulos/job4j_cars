@@ -54,7 +54,7 @@ CREATE TABLE car
     year            INT NOT NULL,
     mileage         INT NOT NULL,
     power           INT NOT NULL,
-    size            INT NOT NULL,
+    size            REAL NOT NULL,
     brand_id        INT NOT NULL REFERENCES brand (id),
     model_id        INT NOT NULL REFERENCES model (id),
     engine_id       INT NOT NULL REFERENCES engine (id),
