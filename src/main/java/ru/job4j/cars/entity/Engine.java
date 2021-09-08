@@ -59,4 +59,13 @@ public class Engine {
         result = 31 * result + type.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Engine{");
+        sb.append("id=").append(id);
+        sb.append(", type='").append(type).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

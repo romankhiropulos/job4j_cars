@@ -14,7 +14,8 @@ public class Brand {
 
     private String name;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany
+    @JoinColumn(name = "brand_id")
     private List<Model> models = new ArrayList<>();
 
     public Brand() {
@@ -84,5 +85,14 @@ public class Brand {
         result = 31 * result + name.hashCode();
         result = 31 * result + models.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Brand{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

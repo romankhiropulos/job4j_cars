@@ -18,7 +18,7 @@ public class User {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Advertisement> advertisements;
 
     public User(String login, String password, String name) {
@@ -32,6 +32,10 @@ public class User {
         this.password = password;
         this.name = name;
         this.advertisements = advertisements;
+    }
+
+    public User() {
+
     }
 
     public int getId() {
@@ -112,5 +116,16 @@ public class User {
         result = 31 * result + name.hashCode();
         result = 31 * result + (advertisements != null ? advertisements.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("id=").append(id);
+        sb.append(", login='").append(login).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

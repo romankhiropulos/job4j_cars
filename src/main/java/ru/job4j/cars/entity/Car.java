@@ -1,6 +1,7 @@
 package ru.job4j.cars.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,28 +20,33 @@ public class Car {
 
     private int size;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "CAR_BRAND_ID_FKEY"))
     private Brand brand;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "model_id", foreignKey = @ForeignKey(name = "CAR_MODEL_ID_FKEY"))
     private Model model;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "CAR_ENGINE_ID_FKEY"))
     private Engine engine;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "body_type_id", foreignKey = @ForeignKey(name = "CAR_BODY_TYPE_ID_FKEY"))
     private BodyType bodyType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transmission_id", foreignKey = @ForeignKey(name = "CAR_TRANSMISSION_ID_FKEY"))
     private Transmission transmission;
 
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    private List<Driver> drivers;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "history_owner",
+            joinColumns = { @JoinColumn(name = "car_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "driver_id", nullable = false, updatable = false) }
+    )
+    private List<Driver> drivers = new ArrayList<>();
 
     public Car() {
     }
@@ -124,14 +130,6 @@ public class Car {
     public void setTransmission(Transmission transmission) {
         this.transmission = transmission;
     }
-//
-//    public List<Driver> getDrivers() {
-//        return drivers;
-//    }
-//
-//    public void setDrivers(List<Driver> drivers) {
-//        this.drivers = drivers;
-//    }
 
     @Override
     public boolean equals(Object o) {
@@ -194,4 +192,21 @@ public class Car {
         return result;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Car{");
+        sb.append("id=").append(id);
+        sb.append(", year=").append(year);
+        sb.append(", mileage=").append(mileage);
+        sb.append(", power=").append(power);
+        sb.append(", size=").append(size);
+        sb.append(", brand=").append(brand);
+        sb.append(", model=").append(model);
+        sb.append(", engine=").append(engine);
+        sb.append(", bodyType=").append(bodyType);
+        sb.append(", transmission=").append(transmission);
+        sb.append(", drivers=").append(drivers);
+        sb.append('}');
+        return sb.toString();
+    }
 }

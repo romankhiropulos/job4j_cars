@@ -12,18 +12,18 @@ public class Model {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "brand_id")
+//    private Brand brand;
 
     public Model() {
 
     }
 
-    public Model(String name, Brand brand) {
-        this.name = name;
-        this.brand = brand;
-    }
+//    public Model(String name, Brand brand) {
+//        this.name = name;
+//        this.brand = brand;
+//    }
 
     public int getId() {
         return id;
@@ -63,5 +63,14 @@ public class Model {
         int result = id;
         result = 31 * result + name.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Model{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

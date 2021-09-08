@@ -7,9 +7,11 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import ru.job4j.cars.entity.Advertisement;
 import ru.job4j.cars.entity.Car;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -19,6 +21,26 @@ public class HbmStorage implements Storage, AutoCloseable {
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
+
+    private static final String SELECT_AD = "select distinct ad from Advertisement ad "
+                                            + "join fetch ad.owner ow "
+                                            + "join fetch ad.car cr "
+                                            + "join fetch cr.model mod "
+                                            + "join fetch cr.brand brd "
+                                            + "join fetch cr.engine eng "
+                                            + "join fetch cr.bodyType bt "
+                                            + "join fetch cr.transmission trm "
+                                            + "join fetch cr.drivers drs "
+                                            + "where ad.id = :ad_id";
+
+    private static final String SELECT_CAR = "select distinct cr from Car cr "
+                                            + "join fetch cr.model mod "
+                                            + "join fetch cr.brand brd "
+                                            + "join fetch cr.engine eng "
+                                            + "join fetch cr.bodyType bt "
+                                            + "join fetch cr.transmission trm "
+                                            + "join fetch cr.drivers drs "
+                                            + "where cr.id = :car_id";
 
     private static final class Lazy {
         private static final Storage INST = new HbmStorage();
@@ -37,21 +59,44 @@ public class HbmStorage implements Storage, AutoCloseable {
     public Car findCarById(int id) throws SQLException {
         return tx(
                 session -> {
-                    final Query query = session.createQuery(
-                            "from ru.job4j.cars.entity.Car where id =: car_id"
-                    );
+                    final Query query = session.createQuery(SELECT_CAR);
                     query.setParameter("car_id", id);
-                    List cars = query.list();
-                    return cars.size() == 1 ? (Car) query.list().get(0) : null;
+                    return (Car) query.uniqueResult();
                 }
         );
     }
 
     @Override
+    public Advertisement findAdById(int id) throws SQLException {
+        return tx(
+                session -> session.createQuery(
+                        SELECT_AD, Advertisement.class
+                ).setParameter("ad_id", id).uniqueResult()
+        );
+    }
+
+    @Override
     public Car saveCar(Car car) throws SQLException {
-        Integer generateIdentifier = (Integer) tx(session -> session.save(car));
-        car.setId(generateIdentifier);
+        tx(session -> session.save(car));
         return car;
+    }
+
+    @Override
+    public Advertisement saveAdvertisement(Advertisement ad) throws SQLException {
+        tx(session -> session.save(ad));
+        return ad;
+    }
+
+    @Override
+    public void updateAdvertisement(Advertisement ad) throws SQLException {
+        tu(session -> session.update(ad));
+    }
+
+    @Override
+    public Collection<Advertisement> getAllAdvertisements() throws SQLException {
+        return tx(session ->
+                session.createQuery(SELECT_AD, Advertisement.class).list()
+        );
     }
 
     private <T> T tx(final Function<Session, T> command) {
@@ -69,116 +114,17 @@ public class HbmStorage implements Storage, AutoCloseable {
         }
     }
 
-    //
-//    @Override
-//    public Item saveItem(Item item) throws SQLException {
-//        Integer generateIdentifier = (Integer) tx(session -> session.save(item));
-//        item.setId(generateIdentifier);
-//        return item;
-//    }
-//
-//    @Override
-//    public void updateItem(Item item) throws SQLException {
-//        tu(session -> session.update(item));
-//    }
-//
-//    @Override
-//    public Collection<Item> getAllItems() throws SQLException {
-//        return tx(session ->
-//                session.createQuery(
-//                        "select distinct i from Item i join fetch i.categories", Item.class
-//                ).list()
-//        );
-//    }
-//
-//    @Override
-//    public Category findCategoryById(int id) {
-//        return tx(session -> session.get(Category.class, id));
-//    }
-//
-//    @Override
-//    public List<Category> getAllCategories() {
-//        return tx(session -> session.createQuery("select c from Category c", Category.class).list());
-//    }
-//
-//    @Override
-//    public Collection<Item> findByDone(boolean key) throws SQLException {
-//        return tx(
-//                session -> {
-//                    final Query query = session.createQuery(
-//                            "from ru.job4j.todo.model.Item where done =: item_name "
-//                    );
-//                    query.setParameter("item_name", key);
-//                    return query.list();
-//                }
-//        );
-//    }
-//
-//    @Override
-//    public User findUserByLoginAndPassword(String login, String password) throws SQLException {
-//        return tx(
-//                session -> {
-//                    final Query query = session.createQuery(
-//                            "from ru.job4j.todo.model.User where login =: user_login"
-//                                    + " and password =: user_password"
-//                    );
-//                    query.setParameter("user_login", login);
-//                    query.setParameter("user_password", password);
-//                    List users = query.list();
-//                    return users.size() == 1 ? (User) query.list().get(0) : null;
-//                }
-//        );
-//    }
-//
-//    @Override
-//    public User findUserByLogin(String login) throws SQLException {
-//        return tx(
-//                session -> {
-//                    final Query query = session.createQuery(
-//                            "from ru.job4j.todo.model.User where login =: user_login"
-//                    );
-//                    query.setParameter("user_login", login);
-//                    List users = query.list();
-//                    return users.size() == 1 ? (User) query.list().get(0) : null;
-//                }
-//        );
-//    }
-//
-//    @Override
-//    public User saveUser(User user) throws SQLException {
-//        Integer generateIdentifier = (Integer) tx(session -> session.save(user));
-//        user.setId(generateIdentifier);
-//        return user;
-//    }
-//
-
-//
-//    private <T> T tx(final Function<Session, T> command) {
-//        final Session session = sf.openSession();
-//        final Transaction tx = session.beginTransaction();
-//        try {
-//            T rsl = command.apply(session);
-//            tx.commit();
-//            return rsl;
-//        } catch (final Exception e) {
-//            session.getTransaction().rollback();
-//            throw e;
-//        } finally {
-//            session.close();
-//        }
-//    }
-//
-//    private void tu(final Consumer<Session> command) {
-//        final Session session = sf.openSession();
-//        final Transaction tx = session.beginTransaction();
-//        try {
-//            command.accept(session);
-//            tx.commit();
-//        } catch (final Exception e) {
-//            session.getTransaction().rollback();
-//            throw e;
-//        } finally {
-//            session.close();
-//        }
-//    }
+    private void tu(final Consumer<Session> command) {
+        final Session session = sf.openSession();
+        final Transaction tx = session.beginTransaction();
+        try {
+            command.accept(session);
+            tx.commit();
+        } catch (final Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 }

@@ -1,8 +1,23 @@
-DELETE FROM model;
-DELETE FROM brand;
-DELETE FROM engine;
-DELETE FROM body_type;
-DELETE FROM transmission;
+DELETE
+FROM advertisement;
+DELETE
+FROM j_user;
+DELETE
+FROM history_owner;
+DELETE
+FROM driver;
+DELETE
+FROM car;
+DELETE
+FROM model;
+DELETE
+FROM brand;
+DELETE
+FROM engine;
+DELETE
+FROM body_type;
+DELETE
+FROM transmission;
 
 INSERT INTO transmission (id, name)
 VALUES (1, 'Автомат'),
@@ -57,9 +72,10 @@ VALUES (1, 'M3', 2),
        (17, 'Charger', 6);
 
 INSERT INTO driver (id, name)
-VALUES (1, 'M3'),
-       (2, 'Z4'),
-       (3, 'X5');
+VALUES (1, 'Ivanov Ivan'),
+       (2, 'Maximus'),
+       (3, 'Alexander Third'),
+       (4, 'Philip Second');
 
 INSERT INTO car (id,
                  year,
@@ -73,8 +89,18 @@ INSERT INTO car (id,
                  transmission_id)
 VALUES (1, 2020, 6000, 350, 2.6, 1, 2, 1, 1, 1),
        (2, 2018, 33000, 250, 2.1, 2, 3, 1, 1, 1),
-       (3, 2015, 233000, 150, 1.8, 3, 7, 1, 1, 1);
+       (3, 2012, 553000, 160, 1.4, 5, 13, 1, 1, 1);
 
+INSERT INTO history_owner (id, driver_id, car_id)
+VALUES (1, 1, 1),
+       (2, 2, 1),
+       (3, 3, 2),
+       (4, 4, 3);
 
+INSERT INTO j_user (id, login, password, name)
+VALUES (1, 'roman@local', 'password', 'roman');
+
+INSERT INTO advertisement (id, created, user_id, car_id, sold)
+VALUES (1, MAKE_TIMESTAMP(2021, 2, 5, 6, 25, 21.2), 1, 1, FALSE);
 
 

@@ -14,11 +14,11 @@ public class Advertisement {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) // ??
     @JoinColumn(name = "car_id")
     private Car car;
 
@@ -31,6 +31,10 @@ public class Advertisement {
         this.owner = owner;
         this.car = car;
         this.sold = sold;
+    }
+
+    public Advertisement() {
+
     }
 
     public int getId() {
@@ -107,5 +111,17 @@ public class Advertisement {
         result = 31 * result + car.hashCode();
         result = 31 * result + (sold ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Advertisement{");
+        sb.append("id=").append(id);
+        sb.append(", created=").append(created);
+        sb.append(", owner=").append(owner);
+        sb.append(", car=").append(car);
+        sb.append(", sold=").append(sold);
+        sb.append('}');
+        return sb.toString();
     }
 }
