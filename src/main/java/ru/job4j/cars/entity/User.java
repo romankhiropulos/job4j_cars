@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "j_user")
-public class User {
+public class User implements Comparable<User> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,5 +127,10 @@ public class User {
         sb.append(", name='").append(name).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return login.compareTo(o.login);
     }
 }

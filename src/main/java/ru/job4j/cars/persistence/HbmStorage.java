@@ -8,7 +8,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import ru.job4j.cars.entity.Advertisement;
+import ru.job4j.cars.entity.Brand;
 import ru.job4j.cars.entity.Car;
+import ru.job4j.cars.entity.User;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -23,24 +25,27 @@ public class HbmStorage implements Storage, AutoCloseable {
             .buildMetadata().buildSessionFactory();
 
     private static final String SELECT_AD = "select distinct ad from Advertisement ad "
-                                            + "join fetch ad.owner ow "
-                                            + "join fetch ad.car cr "
-                                            + "join fetch cr.model mod "
-                                            + "join fetch cr.brand brd "
-                                            + "join fetch cr.engine eng "
-                                            + "join fetch cr.bodyType bt "
-                                            + "join fetch cr.transmission trm "
-                                            + "join fetch cr.drivers drs "
-                                            + "where ad.id = :ad_id";
+            + "join fetch ad.owner ow "
+            + "join fetch ad.car cr "
+            + "join fetch cr.model mod "
+            + "join fetch cr.brand brd "
+            + "join fetch cr.engine eng "
+            + "join fetch cr.bodyType bt "
+            + "join fetch cr.transmission trm "
+            + "join fetch cr.drivers drs "
+            + "where ad.id = :ad_id";
 
     private static final String SELECT_CAR = "select distinct cr from Car cr "
-                                            + "join fetch cr.model mod "
-                                            + "join fetch cr.brand brd "
-                                            + "join fetch cr.engine eng "
-                                            + "join fetch cr.bodyType bt "
-                                            + "join fetch cr.transmission trm "
-                                            + "join fetch cr.drivers drs "
-                                            + "where cr.id = :car_id";
+            + "join fetch cr.model mod "
+            + "join fetch cr.brand brd "
+            + "join fetch cr.engine eng "
+            + "join fetch cr.bodyType bt "
+            + "join fetch cr.transmission trm "
+            + "join fetch cr.drivers drs "
+            + "where cr.id = :car_id";
+
+    private static final String SELECT_BRANDS = "select distinct br from Brand br "
+            + "join fetch br.model mod";
 
     private static final class Lazy {
         private static final Storage INST = new HbmStorage();
@@ -96,6 +101,60 @@ public class HbmStorage implements Storage, AutoCloseable {
     public Collection<Advertisement> getAllAdvertisements() throws SQLException {
         return tx(session ->
                 session.createQuery(SELECT_AD, Advertisement.class).list()
+        );
+    }
+
+    @Override
+    public Collection<Advertisement> findAdBySold(boolean key) throws SQLException {
+        return tx(
+                session -> {
+                    final Query query = session.createQuery(
+                            "from ru.job4j.cars.entity.Advertisement where sold =: ad_sold "
+                    );
+                    query.setParameter("ad_sold", key);
+                    return query.list();
+                }
+        );
+    }
+
+    @Override
+    public User findUserByLoginAndPassword(String login, String password) throws SQLException {
+        return tx(
+                session -> {
+                    final Query query = session.createQuery(
+                            "from ru.job4j.cars.entity.User where login =: user_login"
+                                    + " and password =: user_password"
+                    );
+                    query.setParameter("user_login", login);
+                    query.setParameter("user_password", password);
+                    List users = query.list();
+                    return users.size() == 1 ? (User) query.list().get(0) : null;
+                }
+        );
+    }
+
+    @Override
+    public User findUserByLogin(String login) throws SQLException {
+        return tx(
+                session -> {
+                    final Query query = session.createQuery(
+                            "from ru.job4j.cars.entity.User where login =: user_login"
+                    );
+                    query.setParameter("user_login", login);
+                    return (User) query.uniqueResult();
+                }
+        );
+    }
+
+    @Override
+    public User saveUser(User user) throws SQLException {
+        return (User) tx(session -> session.save(user));
+    }
+
+    @Override
+    public List<Brand> getAllBrands() {
+        return tx(session ->
+                session.createQuery(SELECT_BRANDS, Brand.class).list()
         );
     }
 
