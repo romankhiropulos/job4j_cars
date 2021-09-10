@@ -22,16 +22,17 @@ public class Advertisement {
     @JoinColumn(name = "car_id")
     private Car car;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    private int price;
+
+    private String description;
+
     private boolean sold;
 
 //    private Photo photo;
-
-    public Advertisement(Date created, User owner, Car car, boolean sold) {
-        this.created = created;
-        this.owner = owner;
-        this.car = car;
-        this.sold = sold;
-    }
 
     public Advertisement() {
 

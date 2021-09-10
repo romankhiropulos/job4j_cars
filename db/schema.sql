@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS brand;
 DROP TABLE IF EXISTS engine;
 DROP TABLE IF EXISTS body_type;
 DROP TABLE IF EXISTS transmission;
+DROP TABLE IF EXISTS city;
 
 CREATE TABLE j_user
 (
@@ -32,8 +33,8 @@ CREATE TABLE model
 
 CREATE TABLE engine
 (
-    id    SERIAL PRIMARY KEY,
-    type  VARCHAR NOT NULL
+    id   SERIAL PRIMARY KEY,
+    type VARCHAR NOT NULL
 );
 
 CREATE TABLE body_type
@@ -48,18 +49,24 @@ CREATE TABLE transmission
     name VARCHAR NOT NULL
 );
 
+CREATE TABLE city
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
 CREATE TABLE car
 (
     id              SERIAL PRIMARY KEY,
-    year            INT NOT NULL,
-    mileage         INT NOT NULL,
-    power           INT NOT NULL,
+    year            INT  NOT NULL,
+    mileage         INT  NOT NULL,
+    power           INT  NOT NULL,
     size            REAL NOT NULL,
-    brand_id        INT NOT NULL REFERENCES brand (id),
-    model_id        INT NOT NULL REFERENCES model (id),
-    engine_id       INT NOT NULL REFERENCES engine (id),
-    body_type_id    INT NOT NULL REFERENCES body_type (id),
-    transmission_id INT NOT NULL REFERENCES transmission (id)
+    brand_id        INT  NOT NULL REFERENCES brand (id),
+    model_id        INT  NOT NULL REFERENCES model (id),
+    engine_id       INT  NOT NULL REFERENCES engine (id),
+    body_type_id    INT  NOT NULL REFERENCES body_type (id),
+    transmission_id INT  NOT NULL REFERENCES transmission (id)
 );
 
 CREATE TABLE driver
@@ -77,11 +84,14 @@ CREATE TABLE history_owner
 
 CREATE TABLE advertisement
 (
-    id      SERIAL PRIMARY KEY,
-    created TIMESTAMP NOT NULL,
-    user_id INT       NOT NULL REFERENCES j_user (id),
-    car_id  INT       NOT NULL REFERENCES car (id),
-    sold    BOOLEAN   NOT NULL DEFAULT FALSE
+    id          SERIAL PRIMARY KEY,
+    created     TIMESTAMP NOT NULL,
+    user_id     INT       NOT NULL REFERENCES j_user (id),
+    car_id      INT       NOT NULL REFERENCES car (id),
+    city_id     INT       NOT NULL REFERENCES city (id),
+    price       INT       NOT NULL,
+    description VARCHAR,
+    sold        BOOLEAN   NOT NULL DEFAULT FALSE
 );
 
 

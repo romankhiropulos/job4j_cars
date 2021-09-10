@@ -18,6 +18,8 @@ DELETE
 FROM body_type;
 DELETE
 FROM transmission;
+DELETE
+FROM city;
 
 INSERT INTO transmission (id, name)
 VALUES (1, 'Автомат'),
@@ -43,6 +45,15 @@ VALUES (1, 'Бензин'),
        (3, 'Электро'),
        (4, 'Дизель'),
        (5, 'Гибрид');
+
+INSERT INTO city (id, name)
+VALUES (1, 'Moscow'),
+       (2, 'Leningrad'),
+       (3, 'Kazan'),
+       (4, 'Novgorod'),
+       (5, 'Belgorod'),
+       (6, 'Vladivostok'),
+       (7, 'Irkutsk');
 
 INSERT INTO brand (id, name)
 VALUES (1, 'Mercedes-Benz'),
@@ -100,7 +111,7 @@ VALUES (1, 1, 1),
 INSERT INTO j_user (id, login, password, name)
 VALUES (1, 'roman@local', 'password', 'roman');
 
-INSERT INTO advertisement (id, created, user_id, car_id, sold)
-VALUES (1, MAKE_TIMESTAMP(2021, 2, 5, 6, 25, 21.2), 1, 1, FALSE);
+INSERT INTO advertisement (id, created, user_id, car_id, city_id, price, description, sold)
+VALUES (1, MAKE_TIMESTAMP(2021, 2, 5, 6, 25, 21.2), 1, 1, 1, 5000000, 'Не бита не крашена!', FALSE);
 
 
