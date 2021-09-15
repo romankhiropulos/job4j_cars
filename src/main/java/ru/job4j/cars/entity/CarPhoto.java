@@ -3,8 +3,8 @@ package ru.job4j.cars.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "body_type")
-public class BodyType {
+@Table(name = "car_photo")
+public class CarPhoto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,11 +12,7 @@ public class BodyType {
 
     private String name;
 
-    public BodyType() {
-    }
-
-    public BodyType(String name) {
-        this.name = name;
+    public CarPhoto() {
     }
 
     public int getId() {
@@ -37,7 +33,7 @@ public class BodyType {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("BodyType{");
+        final StringBuilder sb = new StringBuilder("CarPhoto{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append('}');

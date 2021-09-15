@@ -12,18 +12,9 @@ public class Model {
 
     private String name;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "brand_id")
-//    private Brand brand;
-
     public Model() {
 
     }
-
-//    public Model(String name, Brand brand) {
-//        this.name = name;
-//        this.brand = brand;
-//    }
 
     public int getId() {
         return id;

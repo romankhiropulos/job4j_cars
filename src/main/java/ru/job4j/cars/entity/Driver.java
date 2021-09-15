@@ -36,30 +36,6 @@ public class Driver {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Driver driver = (Driver) o;
-
-        if (id != driver.id) {
-            return false;
-        }
-        return name.equals(driver.name);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Driver{");
         sb.append("id=").append(id);

@@ -2,6 +2,7 @@ package ru.job4j.cars.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "advertisement")
@@ -18,7 +19,7 @@ public class Advertisement {
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) // ??
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "car_id")
     private Car car;
 
@@ -32,7 +33,9 @@ public class Advertisement {
 
     private boolean sold;
 
-//    private Photo photo;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "photo_id")
+    private CarPhoto photo;
 
     public Advertisement() {
 
@@ -83,35 +86,16 @@ public class Advertisement {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Advertisement)) {
             return false;
         }
-
         Advertisement that = (Advertisement) o;
-
-        if (id != that.id) {
-            return false;
-        }
-        if (sold != that.sold) {
-            return false;
-        }
-        if (!created.equals(that.created)) {
-            return false;
-        }
-        if (!owner.equals(that.owner)) {
-            return false;
-        }
-        return car.equals(that.car);
+        return this.getId() == that.getId();
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + created.hashCode();
-        result = 31 * result + owner.hashCode();
-        result = 31 * result + car.hashCode();
-        result = 31 * result + (sold ? 1 : 0);
-        return result;
+        return Objects.hash(this.getId());
     }
 
     @Override

@@ -32,6 +32,7 @@ public class HbmStorage implements Storage, AutoCloseable {
             + "join fetch cr.engine eng "
             + "join fetch cr.bodyType bt "
             + "join fetch cr.transmission trm "
+            + "join fetch ad.photo ph "
             + "join fetch cr.drivers drs "
             + "where ad.id = :ad_id";
 

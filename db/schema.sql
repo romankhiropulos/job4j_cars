@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS brand;
 DROP TABLE IF EXISTS engine;
 DROP TABLE IF EXISTS body_type;
 DROP TABLE IF EXISTS transmission;
+DROP TABLE IF EXISTS car_photo;
 DROP TABLE IF EXISTS city;
 
 CREATE TABLE j_user
@@ -47,6 +48,12 @@ CREATE TABLE transmission
 (
     id   SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL
+);
+
+CREATE TABLE car_photo
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR
 );
 
 CREATE TABLE city

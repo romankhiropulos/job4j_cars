@@ -132,67 +132,6 @@ public class Car {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Car car = (Car) o;
-
-        if (id != car.id) {
-            return false;
-        }
-        if (year != car.year) {
-            return false;
-        }
-        if (mileage != car.mileage) {
-            return false;
-        }
-        if (power != car.power) {
-            return false;
-        }
-        if (size != car.size) {
-            return false;
-        }
-        if (!brand.equals(car.brand)) {
-            return false;
-        }
-        if (!model.equals(car.model)) {
-            return false;
-        }
-        if (!engine.equals(car.engine)) {
-            return false;
-        }
-        if (!bodyType.equals(car.bodyType)) {
-            return false;
-        }
-        if (!transmission.equals(car.transmission)) {
-            return false;
-        }
-//        return drivers.equals(car.drivers);
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + year;
-        result = 31 * result + mileage;
-        result = 31 * result + power;
-        result = 31 * result + size;
-        result = 31 * result + brand.hashCode();
-        result = 31 * result + model.hashCode();
-        result = 31 * result + engine.hashCode();
-        result = 31 * result + bodyType.hashCode();
-        result = 31 * result + transmission.hashCode();
-//        result = 31 * result + drivers.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Car{");
         sb.append("id=").append(id);
