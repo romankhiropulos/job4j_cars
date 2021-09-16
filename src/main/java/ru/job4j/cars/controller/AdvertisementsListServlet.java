@@ -24,6 +24,10 @@ public class AdvertisementsListServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setHeader("cache-control", "no-cache");
 
+//        - показать объявления за последний день
+//        - показать объявления с фото
+//        - показать объявления определенной марки.
+
         String listType = req.getParameter("sold");
         List<Advertisement> list = null;
         try {

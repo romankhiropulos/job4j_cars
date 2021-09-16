@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:margin-top="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="todoscripts.js"></script>
+
+    <title>Car Sales</title>
+
+</head>
+
+<body>
+<div class="container" style="margin-top: 10px">
+    <h4>
+        Car Sales
+    </h4>
+    <p id="curLogin"> </p>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="card" style="width: 100%">
+                <div class="card-header">
+                    Объявления
+                </div>
+                <div class="card-body">
+<!--                    <form>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="description">Описание</label>-->
+<!--                            <input type="text" class="form-control" id="description" placeholder="Введите текст"/>-->
+<!--                            <br>-->
+<!--                            <label for="categorySelect">Категория<br></label>-->
+<!--                            <select class="form-control" id="categorySelect" name="categorySelect" multiple> </select>-->
+<!--                        </div>-->
+<!--                        <button type="submit" class="btn btn-primary" onclick="return createItem()">Добавить</button>-->
+<!--                    </form>-->
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col"> Описание</th>
+                            <th scope="col"> Дата создания</th>
+                            <th scope="col"> Автор</th>
+                            <th scope="col"> Продано</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbodyId">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <div class="row pt-3" style="margin-top: 20px">-->
+
+<!--        <p class="form-check">-->
+<!--            <label><input class="form-check-input" type="checkbox" id="showNotDone"/> Показать всё</label>-->
+<!--        </p>-->
+
+<!--        <table class="table table-bordered">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col"> Продано</th>-->
+<!--                <th scope="col"> Описание</th>-->
+<!--                <th scope="col"> Дата создания</th>-->
+<!--                <th scope="col"> Автор</th>-->
+<!--                <th scope="col"> Категория</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody id="tbodyId">-->
+
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+</div>
+</body>
+</html>
