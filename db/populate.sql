@@ -82,6 +82,9 @@ VALUES (1, 'M3', 2),
        (16, 'Challenger', 6),
        (17, 'Charger', 6);
 
+INSERT INTO car_photo (id, name)
+VALUES (1, '1.png');
+
 INSERT INTO driver (id, name)
 VALUES (1, 'Ivanov Ivan'),
        (2, 'Maximus'),
@@ -111,7 +114,7 @@ VALUES (1, 1, 1),
 INSERT INTO j_user (id, login, password, name)
 VALUES (1, 'roman@local', 'password', 'roman');
 
-INSERT INTO advertisement (id, created, user_id, car_id, city_id, price, description, sold)
-VALUES (1, MAKE_TIMESTAMP(2021, 2, 5, 6, 25, 21.2), 1, 1, 1, 5000000, 'Не бита не крашена!', FALSE);
+INSERT INTO advertisement (id, created, user_id, car_id, city_id, price, description, car_photo_id, sold)
+VALUES (1, MAKE_TIMESTAMP(2021, 2, 5, 6, 25, 21.2), 1, 1, 1, 5000000, 'Не бита не крашена!', 1, FALSE);
 
 

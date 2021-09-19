@@ -2,7 +2,9 @@ package ru.job4j.cars.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "car")
@@ -46,7 +48,7 @@ public class Car {
             joinColumns = { @JoinColumn(name = "car_id", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "driver_id", nullable = false, updatable = false) }
     )
-    private List<Driver> drivers = new ArrayList<>();
+    private Set<Driver> drivers = new HashSet<>();
 
     public Car() {
     }

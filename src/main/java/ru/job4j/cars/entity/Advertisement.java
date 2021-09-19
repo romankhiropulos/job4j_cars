@@ -34,7 +34,7 @@ public class Advertisement {
     private boolean sold;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "photo_id")
+    @JoinColumn(name = "car_photo_id")
     private CarPhoto photo;
 
     public Advertisement() {
@@ -73,12 +73,44 @@ public class Advertisement {
         this.car = car;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public boolean isSold() {
         return sold;
     }
 
     public void setSold(boolean sold) {
         this.sold = sold;
+    }
+
+    public CarPhoto getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(CarPhoto photo) {
+        this.photo = photo;
     }
 
     @Override

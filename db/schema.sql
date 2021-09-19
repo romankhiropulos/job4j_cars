@@ -91,14 +91,15 @@ CREATE TABLE history_owner
 
 CREATE TABLE advertisement
 (
-    id          SERIAL PRIMARY KEY,
-    created     TIMESTAMP NOT NULL,
-    user_id     INT       NOT NULL REFERENCES j_user (id),
-    car_id      INT       NOT NULL REFERENCES car (id),
-    city_id     INT       NOT NULL REFERENCES city (id),
-    price       INT       NOT NULL,
-    description VARCHAR,
-    sold        BOOLEAN   NOT NULL DEFAULT FALSE
+    id           SERIAL PRIMARY KEY,
+    created      TIMESTAMP NOT NULL,
+    user_id      INT       NOT NULL REFERENCES j_user (id),
+    car_id       INT       NOT NULL REFERENCES car (id),
+    city_id      INT       NOT NULL REFERENCES city (id),
+    price        INT       NOT NULL,
+    description  VARCHAR,
+    car_photo_id INT,
+    sold         BOOLEAN   NOT NULL DEFAULT FALSE
 );
 
 

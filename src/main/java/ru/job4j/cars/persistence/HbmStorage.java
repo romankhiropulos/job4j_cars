@@ -29,12 +29,16 @@ public class HbmStorage implements Storage, AutoCloseable {
             + "join fetch ad.car cr "
             + "join fetch cr.model mod "
             + "join fetch cr.brand brd "
+            + "join fetch brd.models mds "
             + "join fetch cr.engine eng "
             + "join fetch cr.bodyType bt "
             + "join fetch cr.transmission trm "
             + "join fetch ad.photo ph "
-            + "join fetch cr.drivers drs "
-            + "where ad.id = :ad_id";
+            + "join fetch ad.city ci "
+            + "join fetch cr.drivers drs ";
+
+    private static final String SELECT_USER = "select distinct us from User us "
+            + "join fetch us.advertisements ";
 
     private static final String SELECT_CAR = "select distinct cr from Car cr "
             + "join fetch cr.model mod "
@@ -76,7 +80,7 @@ public class HbmStorage implements Storage, AutoCloseable {
     public Advertisement findAdById(int id) throws SQLException {
         return tx(
                 session -> session.createQuery(
-                        SELECT_AD, Advertisement.class
+                        SELECT_AD.concat("where ad.id = :ad_id"), Advertisement.class
                 ).setParameter("ad_id", id).uniqueResult()
         );
     }
@@ -115,6 +119,15 @@ public class HbmStorage implements Storage, AutoCloseable {
                     query.setParameter("ad_sold", key);
                     return query.list();
                 }
+        );
+    }
+
+    @Override
+    public User findUserById(int id) throws SQLException {
+        return tx(
+                session -> session.createQuery(
+                        SELECT_USER.concat("where us.id = :user_id"), User.class
+                ).setParameter("user_id", id).uniqueResult()
         );
     }
 

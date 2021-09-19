@@ -45,23 +45,22 @@ function showAds(mode) {
                 // if (hasAllItems) {
                     // if (curAd.sold) {
 
-                photo = `<img src="http://localhost:8080/job4j_cars/download?key=${curAd.id}" width="100px"
+                photo = `<img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="100px"
                      height="100px"/>`;
 
-                description = curItem.car.brand + " " + curItem.car.model + ", " + curItem.car.year
+                description = curAd.car.brand + " " + curAd.car.model + ", " + curAd.car.year
                                 + "\n"
-                                + curItem.car.price
+                                + curAd.car.price
                                 + "\n"
-                                + curItem.car.mileage + ", " + curItem.car.power;
+                                + curAd.car.mileage + ", " + curAd.car.power;
 
                         ads += `<tr>
-                                          <td>${sold}></td>
-                                          <td>${description}</td>
-                                          <td>${curItem.created}</td>
-                                          <td>${curItem.user.login}</td>
-                                          <td>${photo}></td>
-                                          
-                                      </tr>`;
+                                  <td>${photo}></td>
+                                  <td>${description}</td>
+                                  <td>${curAd.created}</td>
+                                  <td>${curAd.owner.login}</td>
+                                  <td>${sold}></td>
+                                </tr>`;
                     // } else {
                     //     items += `<tr>
                     //                       <td><input type="checkbox" value=${curItem.id} id="changeDoneItem"></td>
@@ -125,50 +124,50 @@ function createItem() {
     return valid;
 }
 
-$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: 'http://localhost:8080/job4j_todo/categories',
-        dataType: "json",
-        success: function (respData) {
-            let categories = "";
-            for (let i = 0; i < respData.length; i++) {
-                categories += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
-            }
-            $('#categorySelect').html(categories);
-        },
-        error: function (err) {
-            alert(err);
-        }
-    })
-});
+// $(document).ready(function () {
+//     $.ajax({
+//         type: "GET",
+//         url: 'http://localhost:8080/job4j_todo/categories',
+//         dataType: "json",
+//         success: function (respData) {
+//             let categories = "";
+//             for (let i = 0; i < respData.length; i++) {
+//                 categories += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
+//             }
+//             $('#categorySelect').html(categories);
+//         },
+//         error: function (err) {
+//             alert(err);
+//         }
+//     })
+// });
 
-$(document).ready(function () {
-    $('#showNotDone').click(function () {
-
-        const income = 300;
-        switch(income){
-            case 100 :
-                console.log("Доход равен 100");
-                break;
-            case 200 :
-                console.log("Доход равен 200");
-                break;
-            case 300 :
-                console.log("Доход равен 300");
-                break;
-            default:
-                console.log("Доход неизвестной величины");
-                break;
-        }
-
-        if ($(this).is(':checked')) {
-            showItems(true);
-        } else {
-            showItems(false);
-        }
-    });
-});
+// $(document).ready(function () {
+//     $('#showNotDone').click(function () {
+//
+//         const income = 300;
+//         switch(income){
+//             case 100 :
+//                 console.log("Доход равен 100");
+//                 break;
+//             case 200 :
+//                 console.log("Доход равен 200");
+//                 break;
+//             case 300 :
+//                 console.log("Доход равен 300");
+//                 break;
+//             default:
+//                 console.log("Доход неизвестной величины");
+//                 break;
+//         }
+//
+//         if ($(this).is(':checked')) {
+//             showItems(true);
+//         } else {
+//             showItems(false);
+//         }
+//     });
+// });
 
 $(document).ready(function () {
     let curLogin = sessionStorage.getItem('curUser');

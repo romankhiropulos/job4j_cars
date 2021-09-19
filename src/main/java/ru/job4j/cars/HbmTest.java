@@ -12,7 +12,9 @@ public class HbmTest {
     public static void main(String[] args) {
         Car car = null;
         Advertisement ad = null;
+        User user = null;
         try {
+            user = HbmStorage.getInstance().findUserById(1);
             car = HbmStorage.getInstance().findCarById(1);
             ad = HbmStorage.getInstance().findAdById(1);
         } catch (SQLException exception) {
@@ -22,5 +24,6 @@ public class HbmTest {
         }
         System.out.println(car);
         System.out.println(ad);
+        System.out.println(user);
     }
 }

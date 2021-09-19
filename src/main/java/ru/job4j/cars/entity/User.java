@@ -18,7 +18,7 @@ public class User implements Comparable<User> {
 
     private String name;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner") //, orphanRemoval = true)
     private List<Advertisement> advertisements;
 
     public User(String login, String password, String name) {

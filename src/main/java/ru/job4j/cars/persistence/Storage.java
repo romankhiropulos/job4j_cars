@@ -25,6 +25,8 @@ public interface Storage {
 
     Collection<Advertisement> findAdBySold(boolean key) throws SQLException;
 
+    User findUserById(int id) throws SQLException;
+
     abstract User findUserByLoginAndPassword(String login, String password) throws SQLException;
 
     User findUserByLogin(String login) throws SQLException;

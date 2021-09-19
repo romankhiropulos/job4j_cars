@@ -1,8 +1,8 @@
 package ru.job4j.cars.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "brand")
@@ -16,7 +16,7 @@ public class Brand {
 
     @OneToMany
     @JoinColumn(name = "brand_id")
-    private List<Model> models = new ArrayList<>();
+    private Set<Model> models = new HashSet<>();
 
     public Brand() {
     }
@@ -47,11 +47,11 @@ public class Brand {
         this.name = name;
     }
 
-    public List<Model> getModels() {
+    public Set<Model> getModels() {
         return models;
     }
 
-    public void setModels(List<Model> models) {
+    public void setModels(Set<Model> models) {
         this.models = models;
     }
 
