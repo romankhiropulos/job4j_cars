@@ -25,7 +25,7 @@ function showAds(mode) {
         dataType: "json",
         contentType: "text/json;charset=utf-8",
         data: ({
-            mode : mode
+            mode: mode
         }),
         success: function (respData) {
 
@@ -41,49 +41,24 @@ function showAds(mode) {
                 adsArr.push(curAd);
                 sold = curAd.sold ? `<input type="checkbox" value=${curAd.id} id="changeDoneItem"
                                            disabled checked>`
-                                  : `<input type="checkbox" value=${curAd.id} id="changeDoneItem">`;
-                // if (hasAllItems) {
-                    // if (curAd.sold) {
+                    : `<input type="checkbox" value=${curAd.id} id="changeDoneItem">`;
 
-                photo = `<img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="100px"
+                photo = `<img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="150px"
                      height="100px"/>`;
 
-                description = curAd.car.brand + " " + curAd.car.model + ", " + curAd.car.year
-                                + "\n"
-                                + curAd.car.price
-                                + "\n"
-                                + curAd.car.mileage + ", " + curAd.car.power;
+                description = curAd.car.brand.name + " " + curAd.car.model.name + ", " + curAd.car.year
+                                + "<br/>"
+                                + curAd.price + " р."
+                                + "<br/>"
+                                + curAd.car.mileage + " км" + ", " + curAd.car.power + " л.с.";
 
-                        ads += `<tr>
-                                  <td>${photo}></td>
+                ads += `<tr>
+                                  <td>${photo}</td>
                                   <td>${description}</td>
                                   <td>${curAd.created}</td>
                                   <td>${curAd.owner.login}</td>
-                                  <td>${sold}></td>
+                                  <td>${sold}</td>
                                 </tr>`;
-                    // } else {
-                    //     items += `<tr>
-                    //                       <td><input type="checkbox" value=${curItem.id} id="changeDoneItem"></td>
-                    //                       <td>${curItem.description}</td>
-                    //                       <td>${curItem.created}</td>
-                    //                       <td>${curItem.user.login}</td>
-                    //                       <td>${categories}</td>
-                    //                   </tr>`;
-                    // }
-                // } else {
-                //     for (let i = 0; i < curItem.categories.length; i++) {
-                //         categories += curItem.categories[i].name + " ";
-                //     }
-                //     if (!curItem.done) {
-                //         items += `<tr>
-                //                           <td><input type="checkbox" value=${curItem.id} id="changeDoneItem"></td>
-                //                           <td>${curItem.description}</td>
-                //                           <td>${curItem.created}</td>
-                //                           <td>${curItem.user.login}</td>
-                //                           <td>${categories}</td>
-                //                       </tr>`;
-                //     }
-                // }
             }
 
             localStorage.setItem('items', JSON.stringify(adsArr));

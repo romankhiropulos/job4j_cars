@@ -19,6 +19,8 @@ FROM body_type;
 DELETE
 FROM transmission;
 DELETE
+FROM car_photo;
+DELETE
 FROM city;
 
 INSERT INTO transmission (id, name)
@@ -101,7 +103,7 @@ INSERT INTO car (id,
                  engine_id,
                  body_type_id,
                  transmission_id)
-VALUES (1, 2020, 6000, 350, 2.6, 1, 2, 1, 1, 1),
+VALUES (1, 2020, 6000, 350, 2.6, 1, 4, 1, 1, 1),
        (2, 2018, 33000, 250, 2.1, 2, 3, 1, 1, 1),
        (3, 2012, 553000, 160, 1.4, 5, 13, 1, 1, 1);
 

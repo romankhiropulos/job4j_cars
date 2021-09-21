@@ -8,30 +8,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.net.URISyntaxException;
 
 @WebServlet("/carphoto")
 public class CarPhotoServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String folderName = "carphoto" + File.separator;
-        String nameKey = req.getParameter("namekey");
-        File downloadFile = new File(folderName + nameKey + ".png");
-//        for (File file : new File("webapp\\carphoto\\").listFiles()) {
-//            if (key.equals(file.getName())) {
-//                downloadFile = file;
-//                break;
-//            }
-//        }
-        if (!downloadFile.exists()) {
-            downloadFile = new File(folderName + "notfound.png");
+
+        String resources = File.separator + "carphoto";
+        String folderName;
+        try {
+            folderName = new File(
+                    Thread.currentThread().getContextClassLoader().getResource(resources).toURI()
+            ).getAbsolutePath();
+            String nameKey = req.getParameter("namekey");
+            File downloadFile = new File(folderName + File.separator + nameKey + ".png");
+            if (!downloadFile.exists()) {
+                downloadFile = new File(folderName +  File.separator + "notfound.png");
+            }
+            resp.setContentType("application/octet-stream");
+            resp.setHeader("Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\"");
+            try (FileInputStream stream = new FileInputStream(downloadFile)) {
+                resp.getOutputStream().write(stream.readAllBytes());
+            }
+        } catch (URISyntaxException ex) {
+            ex.printStackTrace();
         }
-        resp.setContentType("application/octet-stream");
-        resp.setHeader("Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\"");
-        try (FileInputStream stream = new FileInputStream(downloadFile)) {
-            resp.getOutputStream().write(stream.readAllBytes());
-        }
+
     }
 }
