@@ -2,6 +2,7 @@ package ru.job4j.cars.controller;
 
 import com.google.gson.Gson;
 import ru.job4j.cars.entity.User;
+import ru.job4j.cars.jsonserializer.JsonUtil;
 import ru.job4j.cars.service.Cars;
 
 import javax.servlet.ServletException;
@@ -36,7 +37,7 @@ public class RegServlet extends HttpServlet {
                     resp.addCookie(userCookie);
                 }
                 sc.setAttribute("user", user);
-                String jsonResponse = gson.toJson(user);
+                String jsonResponse = JsonUtil.GSON_USER.toJson(user);
                 PrintWriter writer = resp.getWriter();
                 writer.println(jsonResponse);
                 writer.flush();

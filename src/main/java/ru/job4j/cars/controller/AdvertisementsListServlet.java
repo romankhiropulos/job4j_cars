@@ -15,26 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @WebServlet("/ads")
 public class AdvertisementsListServlet extends HttpServlet {
-
-    private static final Gson GSON = new GsonBuilder()
-            .setDateFormat("dd-MM-yyyy HH:mm:ss")
-            .registerTypeAdapter(City.class, new CitySerializer())
-            .registerTypeAdapter(Brand.class, new BrandSerializer())
-            .registerTypeAdapter(Model.class, new ModelSerializer())
-            .registerTypeAdapter(BodyType.class, new BodyTypeSerializer())
-            .registerTypeAdapter(Engine.class, new EngineTypeSerializer())
-            .registerTypeAdapter(CarPhoto.class, new PhotoSerializer())
-            .registerTypeAdapter(Transmission.class, new TransmissionSerializer())
-            .registerTypeAdapter(Car.class, new CarSerializer())
-            .registerTypeAdapter(User.class, new UserSerializer())
-            .create();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -81,12 +65,7 @@ public class AdvertisementsListServlet extends HttpServlet {
             writer.println("Sorry, items not found!");
             writer.flush();
         } else {
-//            GsonBuilder builder = new GsonBuilder();
-//            builder.setPrettyPrinting();
-
-//            Gson gson = builder.create();
-            String jsonResponse = GSON.toJson(list);
-
+            String jsonResponse = JsonUtil.GSON_AD.toJson(list);
             PrintWriter writer = resp.getWriter();
             writer.write(jsonResponse);
             writer.flush();

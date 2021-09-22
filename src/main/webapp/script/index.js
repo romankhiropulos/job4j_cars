@@ -165,17 +165,19 @@ $(document).on('click', '#changeDoneItem', function () {
 function updateItem(hasDone, curId) {
     let items = JSON.parse(localStorage.getItem('items'));
     let curItem = null;
-    for (let i = 0; i < items.length; i++) {
-        if (items[i]['id'] == curId) {
-            curItem = items[i];
-            curItem.done = hasDone;
-            break;
-        }
-    }
+    // for (let i = 0; i < items.length; i++) {
+    //     if (items[i]['id'] == curId) {
+    //         curItem = items[i];
+    //         curItem.done = hasDone;
+    //         break;
+    //     }
+    // }
+    curItem = items.find(id === curId);
+
     let strItem = JSON.stringify(curItem);
     $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/job4j_todo/itemupdate.do',
+        url: 'http://localhost:8080/job4j_cars/itemupdate.do',
         data: {item: strItem},
         success: function () {
             location.reload();
@@ -186,95 +188,3 @@ function updateItem(hasDone, curId) {
     })
 }
 
-function getInputUser() {
-    let login = document.getElementById('login').value;
-    let password = document.getElementById('password').value;
-    return new User(login, password);
-}
-
-function validateUserData() {
-    let valid = true;
-    let user = getInputUser();
-    if (user.login === '') {
-        valid = false;
-        alert("Нужно заполнить поле \"Логин\"");
-    } else if (user.password === '') {
-        valid = false;
-        alert("Нужно заполнить поле \"Пароль\"");
-    }
-    return valid;
-}
-
-function createUser() {
-    let isValid = validateUserData();
-    if (isValid) {
-        let strUser = JSON.stringify(getInputUser());
-        $.ajax({
-            type: "POST",
-            url: 'http://localhost:8080/job4j_todo/reg',
-            data: {user: strUser},
-            dataType: "json",
-            success: function (response) {
-                let login = response.login;
-                if (login !== undefined) {
-                    sessionStorage.setItem('curUser', login);
-                    window.location.replace("index.html");
-                } else {
-                    alert(response);
-                }
-            },
-            error: function (err) {
-                errorHandler(err);
-                isValid = false;
-            }
-        })
-    }
-
-    return isValid;
-}
-
-function authUser() {
-    let isValid = validateUserData();
-    if (isValid) {
-        let user = getInputUser();
-        let strUser = JSON.stringify(user);
-        $.ajax({
-            type: "POST",
-            url: 'http://localhost:8080/job4j_todo/auth',
-            data: {user: strUser},
-            dataType: "json",
-            success: function (response) {
-                let login = response.login;
-                if (login !== undefined) {
-                    sessionStorage.setItem('curUser', login);
-                    window.location.href = "index.html";
-                } else {
-                    alert(response);
-                }
-            },
-            error: function (err) {
-                errorHandler(err, "Wrong login or password!");
-                isValid = false;
-            }
-        })
-    }
-    return isValid;
-}
-
-function errorHandler(err, authMsg) {
-    switch (err.status) {
-        case 401:
-            alert(authMsg);
-            window.location.replace("auth.html");
-            break;
-        case 400:
-            alert("Bad request!");
-            break;
-        case 500:
-            alert("Internal server error!");
-            break;
-        default:
-            alert(err.status + " " + err.responseText);
-            console.log(err.status + " " + err.responseText);
-    }
-}

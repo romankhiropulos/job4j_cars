@@ -57,7 +57,9 @@ public class Cars {
         try {
             ads = (List<Advertisement>) storage.getAllAdvertisements();
             if (ads != null) {
-                ads.sort(Comparator.comparing(Advertisement::getCreated).thenComparing(Advertisement::getOwner).reversed());
+                ads.sort(Comparator.comparing(Advertisement::getCreated)
+                                   .thenComparing(Advertisement::getOwner)
+                                   .reversed());
             }
         } catch (SQLException exception) {
             LOG.error("SQL Exception: " + exception.getMessage(), exception);

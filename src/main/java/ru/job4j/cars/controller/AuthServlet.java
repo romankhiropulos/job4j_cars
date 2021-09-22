@@ -2,6 +2,7 @@ package ru.job4j.cars.controller;
 
 import com.google.gson.Gson;
 import ru.job4j.cars.entity.User;
+import ru.job4j.cars.jsonserializer.JsonUtil;
 import ru.job4j.cars.service.Cars;
 
 import javax.servlet.ServletException;
@@ -32,7 +33,7 @@ public class AuthServlet extends HttpServlet {
         if (Objects.nonNull(dbUser)) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", dbUser);
-            String jsonResponse = gson.toJson(dbUser);
+            String jsonResponse = JsonUtil.GSON_USER.toJson(dbUser);
             PrintWriter writer = resp.getWriter();
             writer.println(jsonResponse);
             writer.flush();
