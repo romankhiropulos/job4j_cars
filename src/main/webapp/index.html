@@ -32,7 +32,8 @@
     <h4>
         Car Sales
     </h4>
-    <p id="curLogin"> </p>
+    <p id="curLogin"></p>
+    <br>
     <div class="container pt-3">
         <div class="row">
             <div class="card" style="width: 100%">
@@ -40,22 +41,36 @@
                     Объявления
                 </div>
                 <div class="card-body">
-<!--                    <form>-->
-<!--                        <div class="form-group">-->
-<!--                            <label for="description">Описание</label>-->
-<!--                            <input type="text" class="form-control" id="description" placeholder="Введите текст"/>-->
-<!--                            <br>-->
-<!--                            <label for="categorySelect">Категория<br></label>-->
-<!--                            <select class="form-control" id="categorySelect" name="categorySelect" multiple> </select>-->
-<!--                        </div>-->
-<!--                        <button type="submit" class="btn btn-primary" onclick="return createItem()">Добавить</button>-->
-<!--                    </form>-->
+                    <!--                    <form>-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label for="description">Описание</label>-->
+                    <!--                            <input type="text" class="form-control" id="description" placeholder="Введите текст"/>-->
+                    <!--                            <br>-->
+                    <!--                            <label for="categorySelect">Категория<br></label>-->
+                    <!--                            <select class="form-control" id="categorySelect" name="categorySelect" multiple> </select>-->
+                    <!--                        </div>-->
+                    <!--                        <button type="submit" class="btn btn-primary" onclick="return createItem()">Добавить</button>-->
+                    <!--                    </form>-->
+                    <!--                    <label for="categorySelect">Отсортировать<br></label>-->
+                    <div class="form-group">
+                        <select id="filterSelect" name="filterSelect">
+                            <option value="defaultFilter">По умолчанию</option>
+                            <option value="lastDayFilter">Последний день</option>
+                            <option value="withPhotoFilter">Только с фото</option>
+                        </select>
+                        <select id="filterBrand" name="filterBrand">
+                            <option value="">Бренд</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="return createItem()">Показать</button>
+                    <br>
+                    <br>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
                             <th scope="col"> Фото</th>
                             <th scope="col"> Описание</th>
-                            <th scope="col"> Дата создания</th>
+                            <th scope="col"> Дата и время публикации</th>
                             <th scope="col"> Автор</th>
                             <th scope="col"> Продано</th>
                         </tr>
@@ -68,27 +83,27 @@
             </div>
         </div>
     </div>
-<!--    <div class="row pt-3" style="margin-top: 20px">-->
+    <!--    <div class="row pt-3" style="margin-top: 20px">-->
 
-<!--        <p class="form-check">-->
-<!--            <label><input class="form-check-input" type="checkbox" id="showNotDone"/> Показать всё</label>-->
-<!--        </p>-->
+    <!--        <p class="form-check">-->
+    <!--            <label><input class="form-check-input" type="checkbox" id="showNotDone"/> Показать всё</label>-->
+    <!--        </p>-->
 
-<!--        <table class="table table-bordered">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th scope="col"> Продано</th>-->
-<!--                <th scope="col"> Описание</th>-->
-<!--                <th scope="col"> Дата создания</th>-->
-<!--                <th scope="col"> Автор</th>-->
-<!--                <th scope="col"> Категория</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody id="tbodyId">-->
+    <!--        <table class="table table-bordered">-->
+    <!--            <thead>-->
+    <!--            <tr>-->
+    <!--                <th scope="col"> Продано</th>-->
+    <!--                <th scope="col"> Описание</th>-->
+    <!--                <th scope="col"> Дата создания</th>-->
+    <!--                <th scope="col"> Автор</th>-->
+    <!--                <th scope="col"> Категория</th>-->
+    <!--            </tr>-->
+    <!--            </thead>-->
+    <!--            <tbody id="tbodyId">-->
 
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
+    <!--            </tbody>-->
+    <!--        </table>-->
+    <!--    </div>-->
 </div>
 </body>
 </html>

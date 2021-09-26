@@ -1,6 +1,7 @@
 package ru.job4j.cars.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class User implements Comparable<User> {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner") //, orphanRemoval = true)
-    private List<Advertisement> advertisements;
+    private List<Advertisement> advertisements = new ArrayList<>();
 
     public User(String login, String password, String name) {
         this.login = login;

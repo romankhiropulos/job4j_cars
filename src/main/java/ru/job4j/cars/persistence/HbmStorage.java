@@ -13,7 +13,9 @@ import ru.job4j.cars.entity.Car;
 import ru.job4j.cars.entity.User;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -49,7 +51,9 @@ public class HbmStorage implements Storage, AutoCloseable {
             + "join fetch cr.drivers drs "
             + "where cr.id = :car_id";
 
-    private static final String SELECT_BRANDS = "select distinct br from Brand br "
+    private static final String SELECT_BRANDS = "select distinct br from Brand br ";
+
+    private static final String SELECT_BRANDS_WITH_MODELS = "select distinct br from Brand br "
             + "join fetch br.model mod";
 
     private static final class Lazy {
@@ -77,15 +81,6 @@ public class HbmStorage implements Storage, AutoCloseable {
     }
 
     @Override
-    public Advertisement findAdById(int id) throws SQLException {
-        return tx(
-                session -> session.createQuery(
-                        SELECT_AD.concat("where ad.id = :ad_id"), Advertisement.class
-                ).setParameter("ad_id", id).uniqueResult()
-        );
-    }
-
-    @Override
     public Car saveCar(Car car) throws SQLException {
         tx(session -> session.save(car));
         return car;
@@ -106,6 +101,62 @@ public class HbmStorage implements Storage, AutoCloseable {
     public Collection<Advertisement> getAllAdvertisements() throws SQLException {
         return tx(session ->
                 session.createQuery(SELECT_AD, Advertisement.class).list()
+        );
+    }
+
+    @Override
+    public Advertisement findAdById(int id) throws SQLException {
+        return tx(
+                session -> session.createQuery(
+                        SELECT_AD.concat("where ad.id = :ad_id"), Advertisement.class
+                ).setParameter("ad_id", id).uniqueResult()
+        );
+    }
+
+    @Override
+    public Collection<Advertisement> findAdsByBrand(int brandId) throws SQLException {
+        return tx(session -> session.createQuery(
+                        SELECT_AD.concat("where brd.id = :brand_id"), Advertisement.class
+                ).setParameter("brand_id", brandId).list()
+        );
+    }
+
+    @Override
+    public Collection<Advertisement> findAdsByLastDay(String filter) {
+        return tx(session -> {
+            Date today = getToday();
+            return session.createQuery(
+                    SELECT_AD.concat("where ad.created > :date"), Advertisement.class
+            ).setParameter("date", today).list();
+        });
+    }
+
+    @Override
+    public Collection<Advertisement> findAdsByPhoto(String filter) {
+        return tx(session -> session.createQuery(
+                        SELECT_AD.concat("where ph is not null"), Advertisement.class
+                ).list()
+        );
+    }
+
+    @Override
+    public Collection<Advertisement> findAdsByLastDayAndBrand(String filter, int brandId) {
+        return tx(session -> {
+            Date today = getToday();
+            return session.createQuery(
+                    SELECT_AD.concat("where ad.created > :date")
+                             .concat("and brd.id = :brand_id"), Advertisement.class
+            ).setParameter("date", today).setParameter("brand_id", brandId).list();
+        });
+    }
+
+    @Override
+    public Collection<Advertisement> findAdsByPhotoAndBrand(String filter, int brandId) {
+        return tx(session -> session.createQuery(
+                        SELECT_AD
+                                .concat("where ph is not null ")
+                                .concat("and brd.id = :brand_id"), Advertisement.class
+                ).setParameter("brand_id", brandId).list()
         );
     }
 
@@ -162,13 +213,23 @@ public class HbmStorage implements Storage, AutoCloseable {
 
     @Override
     public User saveUser(User user) throws SQLException {
-        return (User) tx(session -> session.save(user));
+        Integer generateIdentifier = (Integer) tx(session -> session.save(user));
+        return user;
     }
 
     @Override
     public List<Brand> getAllBrands() {
         return tx(session ->
                 session.createQuery(SELECT_BRANDS, Brand.class).list()
+        );
+    }
+
+    @Override
+    public List<Brand> getBrandsById(int id) {
+        return tx(session ->
+                session.createQuery(
+                        SELECT_BRANDS.concat("where br.id = :brand_id"), Brand.class
+                ).setParameter("brand_id", id).list()
         );
     }
 
@@ -199,5 +260,14 @@ public class HbmStorage implements Storage, AutoCloseable {
         } finally {
             session.close();
         }
+    }
+
+    private Date getToday() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
 }

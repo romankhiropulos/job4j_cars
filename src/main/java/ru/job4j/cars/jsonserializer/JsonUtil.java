@@ -22,4 +22,8 @@ public class JsonUtil {
     public static final Gson GSON_USER = new GsonBuilder().registerTypeAdapter(
             User.class, new UserSerializer()
     ).create();
+
+    public static final Gson GSON_BRAND = new GsonBuilder().registerTypeAdapter(
+            Brand.class, new BrandSerializer()
+    ).create();
 }

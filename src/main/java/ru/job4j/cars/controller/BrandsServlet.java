@@ -1,8 +1,7 @@
 package ru.job4j.cars.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import ru.job4j.cars.entity.Brand;
+import ru.job4j.cars.jsonserializer.JsonUtil;
 import ru.job4j.cars.service.Cars;
 
 import javax.servlet.ServletException;
@@ -19,15 +18,8 @@ public class BrandsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
-
-        List<Brand> categories = (List<Brand>) Cars.getInstance().getAllBrands();
-
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-
-        Gson gson = builder.create();
-        String jsonResponse = gson.toJson(categories);
-
+        List<Brand> brands = (List<Brand>) Cars.getInstance().getAllBrands();
+        String jsonResponse = JsonUtil.GSON_BRAND.toJson(brands);
         PrintWriter writer = resp.getWriter();
         writer.write(jsonResponse);
         writer.flush();

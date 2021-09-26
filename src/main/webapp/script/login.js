@@ -1,6 +1,7 @@
-function User(login, password) {
+function User(login, password, name) {
     this.login = login;
     this.password = password;
+    this.name = name;
 }
 
 function createUser() {
@@ -62,7 +63,11 @@ function authUser() {
 function getInputUser() {
     let login = document.getElementById('login').value;
     let password = document.getElementById('password').value;
-    return new User(login, password);
+    let nameObj = document.getElementById('name');
+    if (nameObj !== null) {
+        name = nameObj.value;
+    }
+    return new User(login, password, name);
 }
 
 function validateUserData() {
@@ -70,10 +75,10 @@ function validateUserData() {
     let user = getInputUser();
     if (user.login === '') {
         valid = false;
-        alert("Нужно заполнить поле \"Логин\"");
+        alert("Нужно заполнить обязательное поле \"Логин\"");
     } else if (user.password === '') {
         valid = false;
-        alert("Нужно заполнить поле \"Пароль\"");
+        alert("Нужно заполнить обязательное поле \"Пароль\"");
     }
     return valid;
 }

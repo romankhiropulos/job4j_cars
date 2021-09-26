@@ -9,10 +9,7 @@ import ru.job4j.cars.persistence.HbmStorage;
 import ru.job4j.cars.persistence.Storage;
 
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Cars {
     private final Storage storage = HbmStorage.getInstance();
@@ -58,8 +55,8 @@ public class Cars {
             ads = (List<Advertisement>) storage.getAllAdvertisements();
             if (ads != null) {
                 ads.sort(Comparator.comparing(Advertisement::getCreated)
-                                   .thenComparing(Advertisement::getOwner)
-                                   .reversed());
+                        .thenComparing(Advertisement::getOwner)
+                        .reversed());
             }
         } catch (SQLException exception) {
             LOG.error("SQL Exception: " + exception.getMessage(), exception);
@@ -114,5 +111,33 @@ public class Cars {
 
     public Collection<Brand> getAllBrands() {
         return HbmStorage.getInstance().getAllBrands();
+    }
+
+    public Collection<Advertisement> getAdsWithFilter(String filter, int brandId) throws SQLException {
+        List<Advertisement> ads = null;
+        if (Objects.nonNull(filter) && brandId == 0) {
+            switch (filter) {
+                case "lastDayFilter":
+                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByLastDay(filter);
+                    break;
+                case "withPhotoFilter":
+                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByPhoto(filter);
+                    break;
+                default:
+            }
+        } else if (Objects.isNull(filter) && brandId != 0) {
+            ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByBrand(brandId);
+        } else if (Objects.nonNull(filter) && brandId != 0) {
+            switch (filter) {
+                case "lastDayFilter":
+                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByLastDayAndBrand(filter, brandId);
+                    break;
+                case "withPhotoFilter":
+                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByPhotoAndBrand(filter, brandId);
+                    break;
+                default:
+            }
+        }
+        return ads;
     }
 }

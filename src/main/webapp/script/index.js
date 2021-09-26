@@ -18,6 +18,24 @@ $(document).ready(function () {
     showAds("all");
 });
 
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: 'http://localhost:8080/job4j_cars/brands',
+        dataType: "json",
+        success: function (respData) {
+            let categories = "";
+            for (let i = 0; i < respData.length; i++) {
+                categories += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
+            }
+            $('#categorySelect').html(categories);
+        },
+        error: function (err) {
+            alert(err);
+        }
+    })
+});
+
 function showAds(mode) {
     $.ajax({
         type: "GET",
@@ -98,24 +116,6 @@ function createItem() {
     }
     return valid;
 }
-
-// $(document).ready(function () {
-//     $.ajax({
-//         type: "GET",
-//         url: 'http://localhost:8080/job4j_todo/categories',
-//         dataType: "json",
-//         success: function (respData) {
-//             let categories = "";
-//             for (let i = 0; i < respData.length; i++) {
-//                 categories += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
-//             }
-//             $('#categorySelect').html(categories);
-//         },
-//         error: function (err) {
-//             alert(err);
-//         }
-//     })
-// });
 
 // $(document).ready(function () {
 //     $('#showNotDone').click(function () {

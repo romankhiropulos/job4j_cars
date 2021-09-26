@@ -23,6 +23,8 @@ public interface Storage {
 
     Collection<Advertisement> getAllAdvertisements() throws SQLException;
 
+    Collection<Advertisement> findAdsByBrand(int brandId) throws SQLException;
+
     Collection<Advertisement> findAdBySold(boolean key) throws SQLException;
 
     User findUserById(int id) throws SQLException;
@@ -34,4 +36,14 @@ public interface Storage {
     User saveUser(User user) throws SQLException;
 
     Collection<Brand> getAllBrands();
+
+    List<Brand> getBrandsById(int id);
+
+    Collection<Advertisement> findAdsByLastDay(String filter);
+
+    Collection<Advertisement> findAdsByPhoto(String filter);
+
+    Collection<Advertisement> findAdsByLastDayAndBrand(String filter, int brandId);
+
+    Collection<Advertisement> findAdsByPhotoAndBrand(String filter, int brandId);
 }
