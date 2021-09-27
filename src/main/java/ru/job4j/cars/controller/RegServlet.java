@@ -28,15 +28,6 @@ public class RegServlet extends HttpServlet {
             } else {
                 Cars.getInstance().saveUser(user);
                 HttpSession sc = req.getSession();
-//                Не обзязательно принудительно устанавливать куки
-//                if (req.getParameter("JSESSIONID") != null) {
-//                    Cookie userCookie = new Cookie("JSESSIONID", req.getParameter("JSESSIONID"));
-//                    resp.addCookie(userCookie);
-//                } else {
-//                    String sessionId = sc.getId();
-//                    Cookie userCookie = new Cookie("JSESSIONID", sessionId);
-//                    resp.addCookie(userCookie);
-//                }
                 sc.setAttribute("user", user);
                 String jsonResponse = JsonUtil.GSON_USER.toJson(user);
                 PrintWriter writer = resp.getWriter();
@@ -48,6 +39,5 @@ public class RegServlet extends HttpServlet {
             writer.println("Data base problem");
             writer.flush();
         }
-//        resp.sendRedirect(req.getContextPath() + "/index.html");
     }
 }

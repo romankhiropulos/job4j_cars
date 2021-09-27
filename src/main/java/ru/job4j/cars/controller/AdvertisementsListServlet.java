@@ -1,11 +1,8 @@
 package ru.job4j.cars.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import ru.job4j.cars.entity.*;
-import ru.job4j.cars.jsonserializer.*;
+import ru.job4j.cars.entity.Advertisement;
+import ru.job4j.cars.jsonserializer.JsonUtil;
 import ru.job4j.cars.service.Cars;
-import ru.job4j.cars.to.AdvertisementTo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

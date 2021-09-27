@@ -1,14 +1,3 @@
-function Advertisement(id, description, created, done, user) {
-    this.id = id;
-    this.created = created;
-    this.user = user;
-    // this.car = car;
-    // this.city = city;
-    // this.price = price;
-    this.description = description;
-    this.sold = sold;
-}
-
 function User(login, password) {
     this.login = login;
     this.password = password;
@@ -59,9 +48,6 @@ function showAds(filter, brandId) {
 
                 let curAd = respData[i];
                 adsArr.push(curAd);
-                // sold = curAd.sold ? `<input type="checkbox" value=${curAd.id} id="changeDoneItem"
-                //                            disabled checked>`
-                //     : `<input type="checkbox" value=${curAd.id} id="changeDoneItem">`;
 
                 sold = curAd.sold ? "<td bgcolor = #f08080 align='center'>" + "Продано" + "</td>"
                                   : "<td bgcolor = #7fffd4 align='center'>" + "Актуально" + "</td>";
@@ -80,7 +66,6 @@ function showAds(filter, brandId) {
                                   <td>${description}</td>
                                   <td>${curAd.created}</td>
                                   <td>${curAd.owner.login}</td>
-<!--                                  <td>${sold}</td>-->
                                   ${sold}              
                                 </tr>`;
             }
@@ -135,33 +120,6 @@ function createItem() {
     return valid;
 }
 
-// $(document).ready(function () {
-//     $('#showNotDone').click(function () {
-//
-//         const income = 300;
-//         switch(income){
-//             case 100 :
-//                 console.log("Доход равен 100");
-//                 break;
-//             case 200 :
-//                 console.log("Доход равен 200");
-//                 break;
-//             case 300 :
-//                 console.log("Доход равен 300");
-//                 break;
-//             default:
-//                 console.log("Доход неизвестной величины");
-//                 break;
-//         }
-//
-//         if ($(this).is(':checked')) {
-//             showItems(true);
-//         } else {
-//             showItems(false);
-//         }
-//     });
-// });
-
 $(document).ready(function () {
     let curLogin = sessionStorage.getItem('curUser');
     if (curLogin !== null) {
@@ -183,13 +141,7 @@ $(document).on('click', '#changeDoneItem', function () {
 function updateItem(hasDone, curId) {
     let items = JSON.parse(localStorage.getItem('items'));
     let curItem = null;
-    // for (let i = 0; i < items.length; i++) {
-    //     if (items[i]['id'] == curId) {
-    //         curItem = items[i];
-    //         curItem.done = hasDone;
-    //         break;
-    //     }
-    // }
+
     curItem = items.find(id === curId);
 
     let strItem = JSON.stringify(curItem);

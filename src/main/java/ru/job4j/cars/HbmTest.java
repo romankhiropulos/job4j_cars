@@ -4,9 +4,6 @@ import ru.job4j.cars.entity.*;
 import ru.job4j.cars.persistence.HbmStorage;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class HbmTest {
     public static void main(String[] args) {

@@ -1,7 +1,6 @@
 package ru.job4j.cars.entity;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "city")
