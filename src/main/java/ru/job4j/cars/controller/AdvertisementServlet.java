@@ -1,8 +1,6 @@
 package ru.job4j.cars.controller;
 
-import com.google.gson.Gson;
 import ru.job4j.cars.entity.Advertisement;
-import ru.job4j.cars.entity.User;
 import ru.job4j.cars.service.Cars;
 
 import javax.servlet.ServletException;

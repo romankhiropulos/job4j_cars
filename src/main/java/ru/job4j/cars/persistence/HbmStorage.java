@@ -144,7 +144,7 @@ public class HbmStorage implements Storage, AutoCloseable {
         return tx(session -> {
             Date today = getToday();
             return session.createQuery(
-                    SELECT_AD.concat("where ad.created > :date")
+                    SELECT_AD.concat("where ad.created > :date ")
                              .concat("and brd.id = :brand_id"), Advertisement.class
             ).setParameter("date", today).setParameter("brand_id", brandId).list();
         });
@@ -154,8 +154,8 @@ public class HbmStorage implements Storage, AutoCloseable {
     public Collection<Advertisement> findAdsByPhotoAndBrand(String filter, int brandId) {
         return tx(session -> session.createQuery(
                         SELECT_AD
-                                .concat("where ph is not null ")
-                                .concat("and brd.id = :brand_id"), Advertisement.class
+                                .concat("where ph is not null")
+                                .concat(" and brd.id = :brand_id"), Advertisement.class
                 ).setParameter("brand_id", brandId).list()
         );
     }

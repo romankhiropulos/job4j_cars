@@ -118,7 +118,8 @@ VALUES (1, 'roman@local', 'password', 'roman'),
        (2, 'nata@local', 'password', 'natalie');
 
 INSERT INTO advertisement (id, created, user_id, car_id, city_id, price, description, car_photo_id, sold)
-VALUES (1, MAKE_TIMESTAMP(2021, 2, 5, 6, 25, 21.2), 1, 1, 1, 5000000, 'Не бита не крашена!', 1, FALSE),
-       (2, MAKE_TIMESTAMP(2020, 4, 7, 8, 15, 32.1), 2, 2, 7, 3500000, 'Ласточка!', NULL, FALSE);
+VALUES (1, MAKE_TIMESTAMP(2021, 2, 5, 6, 25, 21.2), 1, 1, 1, 5000000, 'Не бита не крашена!', 1, TRUE),
+       (2, MAKE_TIMESTAMP(2020, 4, 7, 8, 15, 32.1), 2, 2, 7, 3500000, 'Ласточка!', NULL, FALSE),
+       (3, MAKE_TIMESTAMP(2021, 9, 27, 1, 01, 44.1), 2, 2, 7, 2450000, 'Третья машина!', NULL, FALSE);
 
 

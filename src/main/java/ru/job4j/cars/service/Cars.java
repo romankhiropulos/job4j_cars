@@ -115,6 +115,7 @@ public class Cars {
 
     public Collection<Advertisement> getAdsWithFilter(String filter, int brandId) throws SQLException {
         List<Advertisement> ads = null;
+        filter = "".equals(filter) ? null : filter;
         if (Objects.nonNull(filter) && brandId == 0) {
             switch (filter) {
                 case "lastDayFilter":

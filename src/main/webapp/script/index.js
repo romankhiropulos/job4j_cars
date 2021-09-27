@@ -15,7 +15,7 @@ function User(login, password) {
 }
 
 $(document).ready(function () {
-    showAds("all");
+    showAds();
 });
 
 $(document).ready(function () {
@@ -24,11 +24,12 @@ $(document).ready(function () {
         url: 'http://localhost:8080/job4j_cars/brands',
         dataType: "json",
         success: function (respData) {
-            let categories = "";
+            let brands = "";
+            brands += `<option value="allBrands">Все бренды</option>`;
             for (let i = 0; i < respData.length; i++) {
-                categories += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
+                brands += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
             }
-            $('#categorySelect').html(categories);
+            $('#filterBrandSelect').html(brands);
         },
         error: function (err) {
             alert(err);
@@ -36,14 +37,15 @@ $(document).ready(function () {
     })
 });
 
-function showAds(mode) {
+function showAds(filter, brandId) {
     $.ajax({
         type: "GET",
         url: 'http://localhost:8080/job4j_cars/ads',
         dataType: "json",
         contentType: "text/json;charset=utf-8",
         data: ({
-            mode: mode
+            filter: filter,
+            brandId: brandId
         }),
         success: function (respData) {
 
@@ -57,25 +59,29 @@ function showAds(mode) {
 
                 let curAd = respData[i];
                 adsArr.push(curAd);
-                sold = curAd.sold ? `<input type="checkbox" value=${curAd.id} id="changeDoneItem"
-                                           disabled checked>`
-                    : `<input type="checkbox" value=${curAd.id} id="changeDoneItem">`;
+                // sold = curAd.sold ? `<input type="checkbox" value=${curAd.id} id="changeDoneItem"
+                //                            disabled checked>`
+                //     : `<input type="checkbox" value=${curAd.id} id="changeDoneItem">`;
+
+                sold = curAd.sold ? "<td bgcolor = #f08080 align='center'>" + "Продано" + "</td>"
+                                  : "<td bgcolor = #7fffd4 align='center'>" + "Актуально" + "</td>";
 
                 photo = `<img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="150px"
                      height="100px"/>`;
 
                 description = curAd.car.brand.name + " " + curAd.car.model.name + ", " + curAd.car.year
-                                + "<br/>"
-                                + curAd.price + " р."
-                                + "<br/>"
-                                + curAd.car.mileage + " км" + ", " + curAd.car.power + " л.с.";
+                    + "<br/>"
+                    + curAd.price + " р."
+                    + "<br/>"
+                    + curAd.car.mileage + " км" + ", " + curAd.car.power + " л.с.";
 
                 ads += `<tr>
                                   <td>${photo}</td>
                                   <td>${description}</td>
                                   <td>${curAd.created}</td>
                                   <td>${curAd.owner.login}</td>
-                                  <td>${sold}</td>
+<!--                                  <td>${sold}</td>-->
+                                  ${sold}              
                                 </tr>`;
             }
 
@@ -86,6 +92,18 @@ function showAds(mode) {
             errorHandler(err);
         }
     })
+}
+
+function showFilteredAds() {
+    let filterSelect = $("#filterSelect").val();
+    let filterBrandSelect = $("#filterBrandSelect").val();
+    if (filterSelect !== 'defaultFilter' || filterBrandSelect !== 'allBrands') {
+        filterSelect      = filterSelect === 'defaultFilter' ? null : filterSelect;
+        filterBrandSelect = filterBrandSelect === 'allBrands' ? null : filterBrandSelect;
+        showAds(filterSelect, filterBrandSelect);
+    } else {
+        showAds();
+    }
 }
 
 function createItem() {

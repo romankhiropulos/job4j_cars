@@ -58,11 +58,11 @@
                             <option value="lastDayFilter">Последний день</option>
                             <option value="withPhotoFilter">Только с фото</option>
                         </select>
-                        <select id="filterBrand" name="filterBrand">
-                            <option value="">Бренд</option>
+                        <select id="filterBrandSelect" name="filterBrand">
+
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="return createItem()">Показать</button>
+                    <button type="submit" class="btn btn-primary" onclick="showFilteredAds()">Применить</button>
                     <br>
                     <br>
                     <table class="table table-bordered">
@@ -72,7 +72,7 @@
                             <th scope="col"> Описание</th>
                             <th scope="col"> Дата и время публикации</th>
                             <th scope="col"> Автор</th>
-                            <th scope="col"> Продано</th>
+                            <th scope="col"> Статус</th>
                         </tr>
                         </thead>
                         <tbody id="tbodyId">
