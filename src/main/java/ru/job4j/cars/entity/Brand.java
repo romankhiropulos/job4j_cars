@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "brand")
 public class Brand {
 
     @Id

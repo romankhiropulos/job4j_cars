@@ -3,7 +3,6 @@ package ru.job4j.cars.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "city")
 public class City {
 
     @Id
