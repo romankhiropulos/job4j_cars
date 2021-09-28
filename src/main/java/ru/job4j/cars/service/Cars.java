@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.cars.entity.Advertisement;
 import ru.job4j.cars.entity.Brand;
 import ru.job4j.cars.entity.User;
+import ru.job4j.cars.persistence.AdRepository;
 import ru.job4j.cars.persistence.HbmStorage;
 import ru.job4j.cars.persistence.Storage;
 
@@ -117,24 +118,24 @@ public class Cars {
         if (Objects.nonNull(filter) && brandId == 0) {
             switch (filter) {
                 case "lastDayFilter":
-                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByLastDay(filter);
+                    ads = (List<Advertisement>) AdRepository.getInstance().getAdsByLastDay();
                     break;
                 case "withPhotoFilter":
-                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByPhoto(filter);
+                    ads = (List<Advertisement>) AdRepository.getInstance().getAdsByPhoto();
                     break;
                 default:
             }
         } else if (Objects.isNull(filter) && brandId != 0) {
-            ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByBrand(brandId);
+            ads = (List<Advertisement>) AdRepository.getInstance().getAdsByBrand(brandId);
         } else if (Objects.nonNull(filter) && brandId != 0) {
             switch (filter) {
                 case "lastDayFilter":
-                    ads = (List<Advertisement>) HbmStorage.getInstance()
-                                                          .findAdsByLastDayAndBrand(filter, brandId);
+                    ads = (List<Advertisement>) AdRepository.getInstance()
+                                                          .getAdsByLastDayAndBrand(brandId);
                     break;
                 case "withPhotoFilter":
-                    ads = (List<Advertisement>) HbmStorage.getInstance()
-                                                          .findAdsByPhotoAndBrand(filter, brandId);
+                    ads = (List<Advertisement>) AdRepository.getInstance()
+                                                          .getAdsByPhotoAndBrand(brandId);
                     break;
                 default:
             }

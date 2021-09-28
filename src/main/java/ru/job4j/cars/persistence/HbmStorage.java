@@ -114,53 +114,6 @@ public class HbmStorage implements Storage, AutoCloseable {
     }
 
     @Override
-    public Collection<Advertisement> findAdsByBrand(int brandId) throws SQLException {
-        return tx(session -> session.createQuery(
-                        SELECT_AD.concat("where brd.id = :brand_id"), Advertisement.class
-                ).setParameter("brand_id", brandId).list()
-        );
-    }
-
-    @Override
-    public Collection<Advertisement> findAdsByLastDay(String filter) {
-        return tx(session -> {
-            Date today = getToday();
-            return session.createQuery(
-                    SELECT_AD.concat("where ad.created > :date"), Advertisement.class
-            ).setParameter("date", today).list();
-        });
-    }
-
-    @Override
-    public Collection<Advertisement> findAdsByPhoto(String filter) {
-        return tx(session -> session.createQuery(
-                        SELECT_AD.concat("where ph is not null"), Advertisement.class
-                ).list()
-        );
-    }
-
-    @Override
-    public Collection<Advertisement> findAdsByLastDayAndBrand(String filter, int brandId) {
-        return tx(session -> {
-            Date today = getToday();
-            return session.createQuery(
-                    SELECT_AD.concat("where ad.created > :date ")
-                             .concat("and brd.id = :brand_id"), Advertisement.class
-            ).setParameter("date", today).setParameter("brand_id", brandId).list();
-        });
-    }
-
-    @Override
-    public Collection<Advertisement> findAdsByPhotoAndBrand(String filter, int brandId) {
-        return tx(session -> session.createQuery(
-                        SELECT_AD
-                                .concat("where ph is not null")
-                                .concat(" and brd.id = :brand_id"), Advertisement.class
-                ).setParameter("brand_id", brandId).list()
-        );
-    }
-
-    @Override
     public Collection<Advertisement> findAdBySold(boolean key) throws SQLException {
         return tx(
                 session -> {
@@ -260,14 +213,5 @@ public class HbmStorage implements Storage, AutoCloseable {
         } finally {
             session.close();
         }
-    }
-
-    private Date getToday() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTime();
     }
 }
