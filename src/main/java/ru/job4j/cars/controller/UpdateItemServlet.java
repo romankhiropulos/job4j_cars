@@ -16,7 +16,9 @@ import java.sql.SQLException;
 @WebServlet("/adupdate.do")
 public class UpdateItemServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         req.setCharacterEncoding("UTF-8");
         try {
             String adStr = req.getParameter("ad");

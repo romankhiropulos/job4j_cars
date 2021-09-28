@@ -29,10 +29,6 @@ public class Cars {
 
     public void saveAdvertisement(final Advertisement ad) throws SQLException {
         try {
-//            Arrays.stream(categoryIds).forEach(
-//                    catId -> ad.getCategories().add(storage.findCategoryById(Integer.parseInt(catId)))
-//            );
-            // Можно делать save AdTo, либо сначала собирать все поля объявления селектами и потом save
             storage.saveAdvertisement(ad);
         } catch (SQLException exception) {
             LOG.error("SQL Exception: " + exception.getMessage(), exception);
@@ -70,7 +66,9 @@ public class Cars {
         try {
             ads = (List<Advertisement>) storage.findAdBySold(key);
             if (ads != null) {
-                ads.sort(Comparator.comparing(Advertisement::getCreated).thenComparing(Advertisement::getOwner).reversed());
+                ads.sort(Comparator.comparing(
+                        Advertisement::getCreated
+                ).thenComparing(Advertisement::getOwner).reversed());
             }
         } catch (SQLException exception) {
             LOG.error("SQL Exception: " + exception.getMessage(), exception);
@@ -131,10 +129,12 @@ public class Cars {
         } else if (Objects.nonNull(filter) && brandId != 0) {
             switch (filter) {
                 case "lastDayFilter":
-                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByLastDayAndBrand(filter, brandId);
+                    ads = (List<Advertisement>) HbmStorage.getInstance()
+                                                          .findAdsByLastDayAndBrand(filter, brandId);
                     break;
                 case "withPhotoFilter":
-                    ads = (List<Advertisement>) HbmStorage.getInstance().findAdsByPhotoAndBrand(filter, brandId);
+                    ads = (List<Advertisement>) HbmStorage.getInstance()
+                                                          .findAdsByPhotoAndBrand(filter, brandId);
                     break;
                 default:
             }

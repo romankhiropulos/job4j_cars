@@ -19,9 +19,10 @@ import java.util.Objects;
 public class AuthServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
+        req.setCharacterEncoding("UTF-8");
         String userStr = req.getParameter("user");
         Gson gson = new Gson();
         User authUser = gson.fromJson(userStr, User.class);
@@ -29,7 +30,6 @@ public class AuthServlet extends HttpServlet {
                 Objects.requireNonNull(authUser).getLogin(),
                 Objects.requireNonNull(authUser).getPassword()
         );
-
         if (Objects.nonNull(dbUser)) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", dbUser);

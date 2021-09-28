@@ -15,10 +15,6 @@ public class Engine {
 
     }
 
-    public Engine(String type) {
-        this.type = type;
-    }
-
     public int getId() {
         return id;
     }

@@ -14,10 +14,6 @@ public class Transmission {
     public Transmission() {
     }
 
-    public Transmission(String name) {
-        this.name = name;
-    }
-
     public int getId() {
         return id;
     }

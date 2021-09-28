@@ -16,7 +16,9 @@ import java.util.List;
 @WebServlet("/brands")
 public class BrandsServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         resp.setCharacterEncoding("UTF-8");
         List<Brand> brands = (List<Brand>) Cars.getInstance().getAllBrands();
         String jsonResponse = JsonUtil.GSON_BRAND.toJson(brands);

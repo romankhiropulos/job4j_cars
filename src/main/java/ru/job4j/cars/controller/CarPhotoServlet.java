@@ -14,7 +14,8 @@ import java.net.URISyntaxException;
 public class CarPhotoServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         String resources = File.separator + "carphoto";
         String folderName;

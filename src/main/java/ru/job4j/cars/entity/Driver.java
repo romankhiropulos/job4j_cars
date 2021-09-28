@@ -14,10 +14,6 @@ public class Driver {
     public Driver() {
     }
 
-    public Driver(String name) {
-        this.name = name;
-    }
-
     public int getId() {
         return id;
     }
