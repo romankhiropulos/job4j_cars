@@ -3,6 +3,7 @@ package ru.job4j.cars.controller;
 import com.google.gson.Gson;
 import ru.job4j.cars.entity.Advertisement;
 import ru.job4j.cars.entity.User;
+import ru.job4j.cars.jsonserializer.JsonUtil;
 import ru.job4j.cars.service.Cars;
 
 import javax.servlet.ServletException;
@@ -21,11 +22,9 @@ public class AdvertisementServlet extends HttpServlet {
             throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
-        String description = req.getParameter("description");
-        String strCIds = req.getParameter("cIds");
-        Gson gson = new Gson();
-        String[] cIds = gson.fromJson(strCIds, String[].class);
-        User curUser = (User) req.getSession().getAttribute("user");
+        String adStr = req.getParameter("advertisement");
+        Advertisement ad = JsonUtil.GSON_AD.fromJson(adStr, Advertisement.class);
+//        User curUser = (User) req.getSession().getAttribute("user");
         try {
             Cars.getInstance().saveAdvertisement(
                     new Advertisement()

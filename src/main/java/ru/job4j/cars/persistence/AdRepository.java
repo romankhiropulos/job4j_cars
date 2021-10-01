@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.function.Function;
 
-public class AdRepository {
+public class AdRepository implements AutoCloseable {
 
     private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure().build();
@@ -105,5 +105,10 @@ public class AdRepository {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
+    }
+
+    @Override
+    public void close() throws Exception {
+        StandardServiceRegistryBuilder.destroy(registry);
     }
 }

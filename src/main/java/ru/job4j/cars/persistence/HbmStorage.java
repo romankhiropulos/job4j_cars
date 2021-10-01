@@ -7,10 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-import ru.job4j.cars.entity.Advertisement;
-import ru.job4j.cars.entity.Brand;
-import ru.job4j.cars.entity.Car;
-import ru.job4j.cars.entity.User;
+import ru.job4j.cars.entity.*;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -171,9 +168,54 @@ public class HbmStorage implements Storage, AutoCloseable {
     }
 
     @Override
-    public List<Brand> getAllBrands() {
+    public Collection<Brand> getAllBrands() {
         return tx(session ->
                 session.createQuery(SELECT_BRANDS, Brand.class).list()
+        );
+    }
+
+    @Override
+    public Collection<City> getAllCites() {
+        return tx(session ->
+                session.createQuery(
+                        "select distinct ct from City ct ", City.class
+                ).list()
+        );
+    }
+
+    @Override
+    public Collection<Model> getAllModels() {
+        return tx(session ->
+                session.createQuery(
+                        "select distinct md from Model md ", Model.class
+                ).list()
+        );
+    }
+
+    @Override
+    public Collection<Engine> getAllEngines() {
+        return tx(session ->
+                session.createQuery(
+                        "select distinct en from Engine en ", Engine.class
+                ).list()
+        );
+    }
+
+    @Override
+    public Collection<BodyType> getAllBodyTypes() {
+        return tx(session ->
+                session.createQuery(
+                        "select distinct bt from BodyType bt ", BodyType.class
+                ).list()
+        );
+    }
+
+    @Override
+    public Collection<Transmission> getAllTransmissions() {
+        return tx(session ->
+                session.createQuery(
+                        "select distinct tr from Transmission tr ", Transmission.class
+                ).list()
         );
     }
 

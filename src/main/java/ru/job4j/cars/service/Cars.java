@@ -2,9 +2,7 @@ package ru.job4j.cars.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.cars.entity.Advertisement;
-import ru.job4j.cars.entity.Brand;
-import ru.job4j.cars.entity.User;
+import ru.job4j.cars.entity.*;
 import ru.job4j.cars.persistence.AdRepository;
 import ru.job4j.cars.persistence.HbmStorage;
 import ru.job4j.cars.persistence.Storage;
@@ -110,6 +108,32 @@ public class Cars {
 
     public Collection<Brand> getAllBrands() {
         return HbmStorage.getInstance().getAllBrands();
+    }
+
+    public Map<String, Object> getFormSelect() {
+
+        Map<String, Object> fieldsData = new HashMap<>();
+
+        List<City> cities = (List<City>) HbmStorage.getInstance().getAllCites();
+        fieldsData.put("cities", cities);
+
+        List<Brand> brands = (List<Brand>) getAllBrands();
+        fieldsData.put("brands", brands);
+
+        List<Model> models = (List<Model>) HbmStorage.getInstance().getAllModels();
+        fieldsData.put("models", models);
+
+        List<BodyType> bodyTypes = (List<BodyType>) HbmStorage.getInstance().getAllBodyTypes();
+        fieldsData.put("bodyTypes", bodyTypes);
+
+        List<Engine> engines = (List<Engine>) HbmStorage.getInstance().getAllEngines();
+        fieldsData.put("engines", engines);
+
+        List<Transmission> transmissions =
+                                (List<Transmission>) HbmStorage.getInstance().getAllTransmissions();
+        fieldsData.put("transmissions", transmissions);
+
+        return fieldsData;
     }
 
     public Collection<Advertisement> getAdsWithFilter(String filter, int brandId) throws SQLException {

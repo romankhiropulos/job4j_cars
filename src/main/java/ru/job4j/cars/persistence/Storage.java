@@ -1,9 +1,6 @@
 package ru.job4j.cars.persistence;
 
-import ru.job4j.cars.entity.Advertisement;
-import ru.job4j.cars.entity.Brand;
-import ru.job4j.cars.entity.Car;
-import ru.job4j.cars.entity.User;
+import ru.job4j.cars.entity.*;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -33,7 +30,17 @@ public interface Storage {
 
     User saveUser(User user) throws SQLException;
 
+    List<Brand> getBrandsById(int id);
+
     Collection<Brand> getAllBrands();
 
-    List<Brand> getBrandsById(int id);
+    Collection<City> getAllCites();
+
+    Collection<Model> getAllModels();
+
+    Collection<Engine> getAllEngines();
+
+    Collection<BodyType> getAllBodyTypes();
+
+    Collection<Transmission> getAllTransmissions();
 }

@@ -4,26 +4,35 @@ function User(login, password) {
 }
 
 $(document).ready(function () {
+    let curLogin = sessionStorage.getItem('curUser');
+    if (curLogin !== null) {
+        $('#curLogin').after(`<p><a href="auth.html">${curLogin}</a></p>`);
+    } else {
+        $('#curLogin').after(`<a href="auth.html">Авторизация</a> | <a href="reg.html">Регистрация</a>`);
+    }
+})
+
+$(document).ready(function () {
     showAds();
 });
 
 $(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: 'http://localhost:8080/job4j_cars/brands',
-        dataType: "json",
-        success: function (respData) {
-            let brands = "";
-            brands += `<option value="allBrands">Все бренды</option>`;
-            for (let i = 0; i < respData.length; i++) {
-                brands += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8080/job4j_cars/brands',
+            dataType: "json",
+            success: function (respData) {
+                let brands = "";
+                brands += `<option value="allBrands">Все бренды</option>`;
+                for (let i = 0; i < respData.length; i++) {
+                    brands += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
+                }
+                $('#filterBrandSelect').html(brands);
+            },
+            error: function (err) {
+                alert(err);
             }
-            $('#filterBrandSelect').html(brands);
-        },
-        error: function (err) {
-            alert(err);
-        }
-    })
+        })
 });
 
 function showAds(filter, brandId) {
@@ -50,7 +59,7 @@ function showAds(filter, brandId) {
                 adsArr.push(curAd);
 
                 sold = curAd.sold ? "<td bgcolor = #f08080 align='center'>" + "Продано" + "</td>"
-                                  : "<td bgcolor = #7fffd4 align='center'>" + "Актуально" + "</td>";
+                    : "<td bgcolor = #7fffd4 align='center'>" + "Актуально" + "</td>";
 
                 photo = `<img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="150px"
                      height="100px"/>`;
@@ -83,7 +92,7 @@ function showFilteredAds() {
     let filterSelect = $("#filterSelect").val();
     let filterBrandSelect = $("#filterBrandSelect").val();
     if (filterSelect !== 'defaultFilter' || filterBrandSelect !== 'allBrands') {
-        filterSelect      = filterSelect === 'defaultFilter' ? null : filterSelect;
+        filterSelect = filterSelect === 'defaultFilter' ? null : filterSelect;
         filterBrandSelect = filterBrandSelect === 'allBrands' ? null : filterBrandSelect;
         showAds(filterSelect, filterBrandSelect);
     } else {
@@ -119,15 +128,6 @@ function createItem() {
     }
     return valid;
 }
-
-$(document).ready(function () {
-    let curLogin = sessionStorage.getItem('curUser');
-    if (curLogin !== null) {
-        $('#curLogin').after(`<p><a href="auth.html">${curLogin}</a></p>`);
-    } else {
-        $('#curLogin').after(`<a href="auth.html">Авторизация</a> | <a href="reg.html">Регистрация</a>`);
-    }
-})
 
 $(document).on('click', '#changeDoneItem', function () {
     let curId = $(this).val();
