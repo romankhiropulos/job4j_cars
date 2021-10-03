@@ -28,9 +28,17 @@ public class Cars {
 
     public void saveAdvertisement(final Advertisement ad) throws SQLException {
         try {
+            ad.setCreated(new Date());
+            Optional<User> userOptional = Optional.of(
+                    HbmStorage.getInstance().findUserByLogin(ad.getOwner().getLogin())
+            );
+            ad.setOwner(userOptional.get());
             storage.saveAdvertisement(ad);
         } catch (SQLException exception) {
             LOG.error("SQL Exception: " + exception.getMessage(), exception);
+            throw exception;
+        } catch (NoSuchElementException exception) {
+            LOG.error("No Such Element Exception: " + exception.getMessage(), exception);
             throw exception;
         }
     }

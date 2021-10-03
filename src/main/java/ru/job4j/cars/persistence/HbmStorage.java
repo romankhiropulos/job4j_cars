@@ -34,7 +34,7 @@ public class HbmStorage implements Storage, AutoCloseable {
             + "join fetch cr.transmission trm "
             + "left join fetch ad.photo ph "
             + "join fetch ad.city ci "
-            + "join fetch cr.drivers drs ";
+            + "left join fetch cr.drivers drs ";
 
     private static final String SELECT_USER = "select distinct us from User us "
             + "join fetch us.advertisements ";

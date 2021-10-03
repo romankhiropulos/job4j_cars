@@ -88,6 +88,16 @@ function showAds(filter, brandId) {
     })
 }
 
+function createAdButton() {
+    let curLogin = sessionStorage.getItem('curUser');
+    if (curLogin === null || curLogin === undefined) {
+        alert("Только авторизованные пользователи могут опубликовывать объявления");
+        window.location.replace("auth.html");
+    } else {
+        window.location.replace("edit.html");
+    }
+}
+
 function showFilteredAds() {
     let filterSelect = $("#filterSelect").val();
     let filterBrandSelect = $("#filterBrandSelect").val();
@@ -98,35 +108,6 @@ function showFilteredAds() {
     } else {
         showAds();
     }
-}
-
-function createItem() {
-    let valid = true;
-    let description = document.getElementById('description').value;
-    let cIds = $("#categorySelect").val();
-    if (description === '' || cIds.length === 0) {
-        valid = false;
-        alert("Пожалуйста, заполните все поля.");
-    } else {
-        let strCIds = JSON.stringify(cIds);
-        $.ajax({
-            type: "POST",
-            url: 'http://localhost:8080/job4j_todo/item.do',
-            data: ({
-                description: description,
-                cIds: strCIds
-            }),
-            success: function () {
-                alert("New task created!");
-                location.reload();
-            },
-            error: function (err) {
-                errorHandler(err, "Only authorized users can create tasks!");
-                valid = false;
-            }
-        })
-    }
-    return valid;
 }
 
 $(document).on('click', '#changeDoneItem', function () {

@@ -34,7 +34,7 @@
         <div class="row">
             <div class="card" style="width: 100%">
                 <div class="card-header">
-                    Объявление
+                    Новое объявление
                 </div>
                 <div class="card-body">
                     <div class="form-group">
@@ -52,17 +52,30 @@
                         <label for="selectCity">Город</label>
                         <select id="selectCity" name="selectCity"> </select>
                         <br>
-                        <!--                        <form>-->
-                        <div style="width: 300px;">
-                            <div class="t"><input type="text" class="form-control" id="price" placeholder="Стоимость"/>
+                        <form>
+                            <div style="width: 300px;">
+                                <div class="t">
+                                    <input type="text" class="form-control" id="adPrice" placeholder="Стоимость"/>
+                                </div>
+                                <div class="t">
+                                    <input type="text" class="form-control" id="adYear" placeholder="Год выпуска"/>
+                                </div>
+                                <div class="t">
+                                    <input type="text" class="form-control" id="adSize" placeholder="Объем двигателя"/>
+                                </div>
+                                <div class="t">
+                                    <input type="text" class="form-control" id="adMileage" placeholder="Пробег"/>
+                                </div>
+                                <div class="t">
+                                    <input type="text" class="form-control" id="adPower" placeholder="Мощность"/>
+                                </div>
+                                <div class="t">
+                                    <input type="text" class="form-control" id="adDescription" placeholder="Описание"/>
+                                </div>
                             </div>
-                            <div class="t"><input type="text" class="form-control" id="description"
-                                                  placeholder="Описание"/></div>
-                            <div class="t"><input type="text" class="form-control" id="name" placeholder="Имя"/></div>
-                        </div>
-                        <!--                        </form>-->
+                        </form>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="showFilteredAds()">Применить</button>
+                    <button type="submit" class="btn btn-primary" onclick="return createAd()">Опубликовать</button>
                 </div>
             </div>
         </div>

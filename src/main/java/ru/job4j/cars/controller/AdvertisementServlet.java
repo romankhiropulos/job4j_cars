@@ -26,9 +26,7 @@ public class AdvertisementServlet extends HttpServlet {
         Advertisement ad = JsonUtil.GSON_AD.fromJson(adStr, Advertisement.class);
 //        User curUser = (User) req.getSession().getAttribute("user");
         try {
-            Cars.getInstance().saveAdvertisement(
-                    new Advertisement()
-            );
+            Cars.getInstance().saveAdvertisement(ad);
         } catch (SQLException exception) {
             PrintWriter writer = resp.getWriter();
             writer.println("Data base problem");
