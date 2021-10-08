@@ -68,6 +68,17 @@ public class Cars {
         return ads;
     }
 
+    public Advertisement findAdById(int id) throws SQLException {
+        Advertisement ad = null;
+        try {
+            ad = storage.findAdById(id);
+        } catch (SQLException exception) {
+            LOG.error("SQL Exception: " + exception.getMessage(), exception);
+            throw exception;
+        }
+        return ad;
+    }
+
     public Collection<Advertisement> findAdBySold(boolean key) throws SQLException {
         List<Advertisement> ads = null;
         try {

@@ -35,6 +35,14 @@ $(document).ready(function () {
         })
 });
 
+// $(document).on('click', '#showAdDetails', function () {
+function showAdDetails() {
+    let curAdId = $(this).val();
+    sessionStorage.setItem('curAdId', curAdId);
+    window.location.href = "adview.html";
+}
+// });
+
 function showAds(filter, brandId) {
     $.ajax({
         type: "GET",
@@ -61,8 +69,10 @@ function showAds(filter, brandId) {
                 sold = curAd.sold ? "<td bgcolor = #f08080 align='center'>" + "Продано" + "</td>"
                     : "<td bgcolor = #7fffd4 align='center'>" + "Актуально" + "</td>";
 
-                photo = `<img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="150px"
-                     height="100px"/>`;
+                photo = `<button value="${curAd.id}" onclick="return showAdDetails">
+                        <img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="150px"
+                     height="100px"/>
+                     </button>`;
 
                 description = curAd.car.brand.name + " " + curAd.car.model.name + ", " + curAd.car.year
                     + "<br/>"
@@ -79,7 +89,7 @@ function showAds(filter, brandId) {
                                 </tr>`;
             }
 
-            localStorage.setItem('items', JSON.stringify(adsArr));
+            sessionStorage.setItem('ads', JSON.stringify(adsArr));
             $('#tbodyId').html(ads);
         },
         error: function (err) {
