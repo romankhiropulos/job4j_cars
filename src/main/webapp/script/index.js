@@ -17,31 +17,32 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/job4j_cars/brands',
-            dataType: "json",
-            success: function (respData) {
-                let brands = "";
-                brands += `<option value="allBrands">Все бренды</option>`;
-                for (let i = 0; i < respData.length; i++) {
-                    brands += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
-                }
-                $('#filterBrandSelect').html(brands);
-            },
-            error: function (err) {
-                alert(err);
+    $.ajax({
+        type: "GET",
+        url: 'http://localhost:8080/job4j_cars/brands',
+        dataType: "json",
+        success: function (respData) {
+            let brands = "";
+            brands += `<option value="allBrands">Все бренды</option>`;
+            for (let i = 0; i < respData.length; i++) {
+                brands += "<option value=" + respData[i]['id'] + ">" + respData[i]['name'] + "</option>";
             }
-        })
+            $('#filterBrandSelect').html(brands);
+        },
+        error: function (err) {
+            alert(err);
+        }
+    })
 });
 
-// $(document).on('click', '#showAdDetails', function () {
-function showAdDetails() {
+$(document).on('click', '#showAdDetails', function () {
+// function showAdDetails() {
     let curAdId = $(this).val();
     sessionStorage.setItem('curAdId', curAdId);
     window.location.href = "adview.html";
-}
-// });
+// }
+
+});
 
 function showAds(filter, brandId) {
     $.ajax({
@@ -67,12 +68,12 @@ function showAds(filter, brandId) {
                 adsArr.push(curAd);
 
                 sold = curAd.sold ? "<td bgcolor = #f08080 align='center'>" + "Продано" + "</td>"
-                    : "<td bgcolor = #7fffd4 align='center'>" + "Актуально" + "</td>";
-
-                photo = `<button value="${curAd.id}" onclick="return showAdDetails">
-                        <img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}" width="150px"
-                     height="100px"/>
-                     </button>`;
+                    : "<td bgcolor = #7fffd4 align='center'>" + "В наличии" + "</td>";
+                <!--                    onclick="return showAdDetails"> -->
+                photo = `<button value="${curAd.id}" id="showAdDetails"> 
+                            <img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}"
+                                 width="150px" height="100px" alt="Подробнее"/>
+                         </button>`;
 
                 description = curAd.car.brand.name + " " + curAd.car.model.name + ", " + curAd.car.year
                     + "<br/>"
@@ -133,7 +134,8 @@ function updateItem(hasDone, curId) {
     let items = JSON.parse(localStorage.getItem('items'));
     let curItem = null;
 
-    curItem = items.find(id === curId);
+    // curItem = items.find(id === curId);
+    // let user = users.find(item => item.id == 1);
 
     let strItem = JSON.stringify(curItem);
     $.ajax({
