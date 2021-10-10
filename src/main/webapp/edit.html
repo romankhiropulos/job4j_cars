@@ -22,6 +22,15 @@
     <script src="script/error.js"></script>
     <script src="script/edit.js"></script>
 
+    <style>
+        .input__wrapper {
+            width: 100%;
+            position: relative;
+            margin: 15px 0;
+            text-align: center;
+        }
+    </style>
+
     <title>Advertisement</title>
 
 </head>
@@ -32,46 +41,55 @@
     <br>
     <div class="container pt-3">
         <div class="row">
-            <div class="card" style="width: 100%">
+            <div class="card" style="width: 80%">
                 <div class="card-header">
                     Новое объявление
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="selectBrand">Бренд</label>
-                        <select id="selectBrand" name="selectBrand"> </select>
-                        <label for="selectTransmission">Трансмиссия</label>
-                        <select id="selectTransmission" name="selectTransmission"> </select>
-                        <label for="selectBodyType">Кузов</label>
-                        <select id="selectBodyType" name="selectBodyType"> </select>
-                        <br>
-                        <label for="selectModel">Модель</label>
-                        <select id="selectModel" name="selectModel"> </select>
-                        <label for="selectEngine">Двигатель</label>
-                        <select id="selectEngine" name="selectEngine"> </select>
-                        <label for="selectCity">Город</label>
-                        <select id="selectCity" name="selectCity"> </select>
-                        <br>
+                    <div class="form-group" style="width: 800px;">
+                        <label for="selectBrand"
+                               style="margin-bottom: -0.5px">Бренд</label>
+                        <select class="form-control" id="selectBrand" name="selectBrand"> </select>
+                        <label for="selectTransmission"
+                               style="margin-top: 5px; margin-bottom: -0.5px">Трансмиссия</label>
+                        <select class="form-control" id="selectTransmission" name="selectTransmission"> </select>
+                        <label for="selectBodyType"
+                               style="margin-top: 5px; margin-bottom: -0.5px">Кузов</label>
+                        <select class="form-control" id="selectBodyType" name="selectBodyType"> </select>
+                        <label for="selectModel"
+                               style="margin-top: 5px; margin-bottom: -0.5px">Модель</label>
+                        <select class="form-control" id="selectModel" name="selectModel"> </select>
+                        <label for="selectEngine"
+                               style="margin-top: 5px; margin-bottom: -0.5px">Двигатель</label>
+                        <select class="form-control" id="selectEngine" name="selectEngine"> </select>
+                        <label for="selectCity"
+                               style="margin-top: 5px; margin-bottom: -0.5px">Город</label>
+                        <select class="form-control" id="selectCity" name="selectCity"> </select>
                         <form>
-                            <div style="width: 300px;">
-                                <div class="t">
+                                <div class="t" style="margin-top: 8px">
                                     <input type="text" class="form-control" id="adPrice" placeholder="Стоимость"/>
                                 </div>
-                                <div class="t">
+                                <div class="t" style="margin-top: 8px">
                                     <input type="text" class="form-control" id="adYear" placeholder="Год выпуска"/>
                                 </div>
-                                <div class="t">
+                                <div class="t" style="margin-top: 8px">
                                     <input type="text" class="form-control" id="adSize" placeholder="Объем двигателя"/>
                                 </div>
-                                <div class="t">
+                                <div class="t" style="margin-top: 8px">
                                     <input type="text" class="form-control" id="adMileage" placeholder="Пробег"/>
                                 </div>
-                                <div class="t">
+                                <div class="t" style="margin-top: 8px">
                                     <input type="text" class="form-control" id="adPower" placeholder="Мощность"/>
                                 </div>
-                                <div class="t">
-                                    <input type="text" class="form-control" id="adDescription" placeholder="Описание"/>
+                                <div class="t" style="margin-top: 8px">
+                                    <textarea class="form-control" name="comment" cols="40" rows="3"
+                                              id="adDescription" placeholder="Описание"></textarea>
                                 </div>
+                            <div style="margin-top: 8px">
+                                <label for="adFilePhotoName">Фото автомобиля:</label>
+                                <input type="file" class=""
+                                       id="adFilePhotoName" placeholder="Выбор фото"
+                                       accept=".jpg, .jpeg, .png">
                             </div>
                         </form>
                     </div>

@@ -45,20 +45,23 @@ function getAdsInputData() {
     let power = $("#adPower").val();
     let size = $("#adSize").val();
     let description = $("#adDescription").val();
+    let photo = $("#adFilePhotoName").val();
     return new Map([["model", model], ["bodyType", bodyType], ["brand", brand],
                           ["engine", engine], ["transmission", transmission], ["city", city],
                           ["price", price], ["year", year], ["mileage", mileage],
-                          ["power", power], ["size", size], ["description", description]]);
+                          ["power", power], ["size", size], ["description", description],
+                          ["photo", photo]]);
 }
 
 function validateAdInput(fields) {
+    let result = true;
     fields.forEach(function (value, key, map) {
         if (value === "") {
             alert("Необходимо заполнить все поля объявления!");
-            return false;
+            result = false;
         }
     });
-    return true;
+    return result;
 }
 
 function prepareNewAd(adsFields) {
@@ -76,6 +79,7 @@ function prepareNewAd(adsFields) {
             "bodyType": {"id": adsFields.get("bodyType")},
             "transmission": {"id": adsFields.get("transmission")},
         },
+        "photo": {"name": adsFields.get("photo")},
         "city": {"id": adsFields.get("city")},
         "price": adsFields.get("price"),
         "description": adsFields.get("description"),

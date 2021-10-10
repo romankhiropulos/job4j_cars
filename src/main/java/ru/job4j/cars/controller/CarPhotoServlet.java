@@ -38,6 +38,11 @@ public class CarPhotoServlet extends HttpServlet {
         } catch (URISyntaxException ex) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
     }
 }

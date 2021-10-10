@@ -36,12 +36,9 @@ $(document).ready(function () {
 });
 
 $(document).on('click', '#showAdDetails', function () {
-// function showAdDetails() {
     let curAdId = $(this).val();
     sessionStorage.setItem('curAdId', curAdId);
     window.location.href = "adview.html";
-// }
-
 });
 
 function showAds(filter, brandId) {
