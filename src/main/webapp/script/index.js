@@ -69,25 +69,23 @@ function showAds(filter, brandId) {
 
                 sold = curAd.sold ? "<td bgcolor = #f08080 align='center'>" + "Продано" + "</td>"
                     : "<td bgcolor = #7fffd4 align='center'>" + "В наличии" + "</td>";
-                <!--                    onclick="return showAdDetails"> -->
                 photo = `<button value="${curAd.id}" id="showAdDetails"> 
                             <img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}"
                                  width="150px" height="100px" alt="Подробнее"/>
                          </button>`;
-
                 description = curAd.car.brand.name + " " + curAd.car.model.name + ", " + curAd.car.year
                     + "<br/>"
                     + curAd.price + " р."
                     + "<br/>"
-                    + curAd.car.mileage + " км" + ", " + curAd.car.power + " л.с.";
+                    + curAd.car.mileage + " км" + ", "  + curAd.city.name;
 
                 ads += `<tr>
-                                  <td>${photo}</td>
-                                  <td>${description}</td>
-                                  <td>${curAd.created}</td>
-                                  <td>${curAd.owner.login}</td>
-                                  ${sold}              
-                                </tr>`;
+                          <td>${photo}</td>
+                          <td>${description}</td>
+                          <td>${curAd.created}</td>
+                          <td>${curAd.owner.login}</td>
+                          ${sold}              
+                        </tr>`;
             }
 
             sessionStorage.setItem('ads', JSON.stringify(adsArr));
