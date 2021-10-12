@@ -19,7 +19,7 @@ $(document).ready(function showAd() {
 
         adData = `<figure class="sign">
                    <p>
-                        <img src="http://localhost:8080/job4j_cars/carphoto?namekey=${ad.id}"
+                        <img src="http://localhost:8080/job4j_cars/carphotoload?namekey=${ad.id}"
                         width="850px" height="500px" alt="АААААААААААаааавтомобиль!"/>
                    </p>
                    <figcaption>${figcaptionText}</figcaption>

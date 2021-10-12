@@ -67,7 +67,7 @@ function showAds(filter, brandId) {
                 sold = curAd.sold ? "<td bgcolor = #f08080 align='center'>" + "Продано" + "</td>"
                     : "<td bgcolor = #7fffd4 align='center'>" + "В наличии" + "</td>";
                 photo = `<button value="${curAd.id}" id="showAdDetails"> 
-                            <img src="http://localhost:8080/job4j_cars/carphoto?namekey=${curAd.id}"
+                            <img src="http://localhost:8080/job4j_cars/carphotoload?namekey=${curAd.id}"
                                  width="150px" height="100px" alt="Подробнее"/>
                          </button>`;
                 description = curAd.car.brand.name + " " + curAd.car.model.name + ", " + curAd.car.year

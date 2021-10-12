@@ -2,6 +2,39 @@ $(document).ready(function () {
     loadFieldsData();
 });
 
+// $('form#adFormData').submit(function (e) {
+$(document).on('submit', '#adFormData', function (e) {
+    e.preventDefault();
+    let formData = new FormData();
+    let filePhoto = $('#adFilePhotoName')[0].files[0];
+
+    let valid = false;
+    let adsFields = getAdsInputData();
+    valid = validateAdInput(adsFields);
+    if (valid) {
+        let ad = prepareNewAd(adsFields);
+
+        formData.append('adPhoto', filePhoto);
+        let strAd = JSON.stringify(ad);
+        formData.append('adFields', strAd);
+    }
+
+    $.ajax({
+        url: 'http://localhost:8080/job4j_cars/ad.do',
+        type: 'POST',
+        data: ({
+            // description: description,
+            advertisement: formData,
+        }),
+        success: function (data) {
+            alert(data)
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
+
 function createAd() {
     let valid = false;
     let adsFields = getAdsInputData();
@@ -14,10 +47,11 @@ function createAd() {
             url: 'http://localhost:8080/job4j_cars/ad.do',
             data: ({
                 // description: description,
-                advertisement: strAd
+                advertisement: strAd,
             }),
             success: function () {
                 alert("Объявление опубликовано");
+                uploadPhoto();
                 window.location.replace("index.html");
             },
             error: function (err) {
@@ -30,6 +64,19 @@ function createAd() {
     }
 
     return valid;
+}
+
+function uploadPhoto() {
+    // $(function() {
+    $('#adFilePhotoName').ajaxForm({
+        success: function (msg) {
+            alert("File has been uploaded successfully");
+        },
+        error: function (msg) {
+            $("#upload-error").text("Couldn't upload file");
+        }
+    });
+    // });
 }
 
 function getAdsInputData() {
@@ -47,10 +94,10 @@ function getAdsInputData() {
     let description = $("#adDescription").val();
     let photo = $("#adFilePhotoName").val();
     return new Map([["model", model], ["bodyType", bodyType], ["brand", brand],
-                          ["engine", engine], ["transmission", transmission], ["city", city],
-                          ["price", price], ["year", year], ["mileage", mileage],
-                          ["power", power], ["size", size], ["description", description],
-                          ["photo", photo]]);
+        ["engine", engine], ["transmission", transmission], ["city", city],
+        ["price", price], ["year", year], ["mileage", mileage],
+        ["power", power], ["size", size], ["description", description],
+        ["photo", photo]]);
 }
 
 function validateAdInput(fields) {

@@ -18,7 +18,29 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="script/index.js"></script>
+    <!--    <script src="/jobs/public/js/jquery.js"></script>-->
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>-->
+    <!--    <script src="https://malsup.github.com/jquery.form.js"></script>-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"
+            integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn"
+            crossorigin="anonymous">
+    </script>
+
+    <!--    <script>-->
+    <!--        $(function() {-->
+    <!--            $('#adFilePhotoName').ajaxForm({-->
+    <!--                success: function(msg) {-->
+    <!--                    alert("File has been uploaded successfully");-->
+    <!--                },-->
+    <!--                error: function(msg) {-->
+    <!--                    $("#upload-error").text("Couldn't upload file");-->
+    <!--                }-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
+
+<!--    <script src="script/index.js"></script>-->
     <script src="script/error.js"></script>
     <script src="script/edit.js"></script>
 
@@ -65,35 +87,43 @@
                         <label for="selectCity"
                                style="margin-top: 5px; margin-bottom: -0.5px">Город</label>
                         <select class="form-control" id="selectCity" name="selectCity"> </select>
-                        <form>
-                                <div class="t" style="margin-top: 8px">
-                                    <input type="text" class="form-control" id="adPrice" placeholder="Стоимость"/>
-                                </div>
-                                <div class="t" style="margin-top: 8px">
-                                    <input type="text" class="form-control" id="adYear" placeholder="Год выпуска"/>
-                                </div>
-                                <div class="t" style="margin-top: 8px">
-                                    <input type="text" class="form-control" id="adSize" placeholder="Объем двигателя"/>
-                                </div>
-                                <div class="t" style="margin-top: 8px">
-                                    <input type="text" class="form-control" id="adMileage" placeholder="Пробег"/>
-                                </div>
-                                <div class="t" style="margin-top: 8px">
-                                    <input type="text" class="form-control" id="adPower" placeholder="Мощность"/>
-                                </div>
-                                <div class="t" style="margin-top: 8px">
+
+                        <form id="adFormData" class="upload-box" method="post" enctype="multipart/form-data">
+                            <div class="t" style="margin-top: 8px">
+                                <input type="text" class="form-control" id="adPrice" placeholder="Стоимость"/>
+                            </div>
+                            <div class="t" style="margin-top: 8px">
+                                <input type="text" class="form-control" id="adYear" placeholder="Год выпуска"/>
+                            </div>
+                            <div class="t" style="margin-top: 8px">
+                                <input type="text" class="form-control" id="adSize" placeholder="Объем двигателя"/>
+                            </div>
+                            <div class="t" style="margin-top: 8px">
+                                <input type="text" class="form-control" id="adMileage" placeholder="Пробег"/>
+                            </div>
+                            <div class="t" style="margin-top: 8px">
+                                <input type="text" class="form-control" id="adPower" placeholder="Мощность"/>
+                            </div>
+                            <div class="t" style="margin-top: 8px">
                                     <textarea class="form-control" name="comment" cols="40" rows="3"
                                               id="adDescription" placeholder="Описание"></textarea>
-                                </div>
+                            </div>
                             <div style="margin-top: 8px">
+                                <!--                                <form id="upload-form" class="upload-box" action="/carphotoload" method="post" enctype="multipart/form-data">-->
                                 <label for="adFilePhotoName">Фото автомобиля:</label>
                                 <input type="file" class=""
                                        id="adFilePhotoName" placeholder="Выбор фото"
                                        accept=".jpg, .jpeg, .png">
+                                <!--                                <span id="upload-error" class="error">${uploadError}</span>-->
+                                <!--                                </form>-->
                             </div>
+                            <button type="submit" class="btn btn-primary" >
+<!--                                    onclick="return createAd()">-->
+                                Опубликовать
+                            </button>
                         </form>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="return createAd()">Опубликовать</button>
+                    <!--                    <button type="submit" class="btn btn-primary" onclick="return createAd()">Опубликовать</button>-->
                 </div>
             </div>
         </div>
