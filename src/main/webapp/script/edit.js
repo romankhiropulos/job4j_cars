@@ -3,8 +3,9 @@ $(document).ready(function () {
 });
 
 // $('form#adFormData').submit(function (e) {
-$(document).on('submit', '#adFormData', function (e) {
-    e.preventDefault();
+$(document).on('submit', '#adFormData', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
     let formData = new FormData();
     let filePhoto = $('#adFilePhotoName')[0].files[0];
 
@@ -16,23 +17,31 @@ $(document).on('submit', '#adFormData', function (e) {
 
         formData.append('adPhoto', filePhoto);
         let strAd = JSON.stringify(ad);
-        formData.append('adFields', strAd);
+        formData.append("adFields", strAd);
+
+        for (var [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
     }
 
-    $.ajax({
-        url: 'http://localhost:8080/job4j_cars/ad.do',
-        type: 'POST',
-        data: ({
-            // description: description,
-            advertisement: formData,
-        }),
-        success: function (data) {
-            alert(data)
-        },
-        cache: false,
-        contentType: false,
-        processData: false
-    });
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "ad.do");
+    xhr.send(formData);
+
+    // $.ajax({
+    //     url: 'http://localhost:8080/job4j_cars/ad.do',
+    //     type: 'POST',
+    //     contentType: false,
+    //     data: ({
+    //         // description: description,
+    //         advertisement: formData,
+    //     }),
+    //     cache: false,
+    //     processData: false,
+    //     success: function (data) {
+    //         alert(data)
+    //     },
+    // });
 });
 
 function createAd() {
