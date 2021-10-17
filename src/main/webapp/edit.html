@@ -18,40 +18,8 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <!--    <script src="/jobs/public/js/jquery.js"></script>-->
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>-->
-    <!--    <script src="https://malsup.github.com/jquery.form.js"></script>-->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"
-            integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn"
-            crossorigin="anonymous">
-    </script>
-
-    <!--    <script>-->
-    <!--        $(function() {-->
-    <!--            $('#adFilePhotoName').ajaxForm({-->
-    <!--                success: function(msg) {-->
-    <!--                    alert("File has been uploaded successfully");-->
-    <!--                },-->
-    <!--                error: function(msg) {-->
-    <!--                    $("#upload-error").text("Couldn't upload file");-->
-    <!--                }-->
-    <!--            });-->
-    <!--        });-->
-    <!--    </script>-->
-
-<!--    <script src="script/index.js"></script>-->
     <script src="script/error.js"></script>
     <script src="script/edit.js"></script>
-
-    <style>
-        .input__wrapper {
-            width: 100%;
-            position: relative;
-            margin: 15px 0;
-            text-align: center;
-        }
-    </style>
 
     <title>Advertisement</title>
 
@@ -109,22 +77,16 @@
                                               id="adDescription" placeholder="Описание"></textarea>
                             </div>
                             <div style="margin-top: 8px">
-                                <!--                                <form id="upload-form" class="upload-box" action="/carphotoload" method="post" enctype="multipart/form-data">-->
                                 <label for="adFilePhotoName">Фото автомобиля:</label>
                                 <input type="file" class=""
                                        id="adFilePhotoName" placeholder="Выбор фото"
                                        accept=".jpg, .jpeg, .png">
-                                <!--                                <span id="upload-error" class="error">${uploadError}</span>-->
-                                <!--                                </form>-->
                             </div>
-                            <input type="submit" id="upload-button" value="upload" />
-<!--                            <button type="submit" class="btn btn-primary" >-->
-<!--                                    onclick="return createAd()">-->
+                            <button type="submit" class="btn btn-primary" >
                                 Опубликовать
                             </button>
                         </form>
                     </div>
-                    <!--                    <button type="submit" class="btn btn-primary" onclick="return createAd()">Опубликовать</button>-->
                 </div>
             </div>
         </div>

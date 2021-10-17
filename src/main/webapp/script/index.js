@@ -116,33 +116,3 @@ function showFilteredAds() {
     }
 }
 
-$(document).on('click', '#changeDoneItem', function () {
-    let curId = $(this).val();
-    if ($(this).is(':checked')) {
-        updateItem(true, curId);
-    } else {
-        updateItem(false, curId);
-    }
-});
-
-function updateItem(hasDone, curId) {
-    let items = JSON.parse(localStorage.getItem('items'));
-    let curItem = null;
-
-    // curItem = items.find(id === curId);
-    // let user = users.find(item => item.id == 1);
-
-    let strItem = JSON.stringify(curItem);
-    $.ajax({
-        type: "POST",
-        url: 'http://localhost:8080/job4j_cars/itemupdate.do',
-        data: {item: strItem},
-        success: function () {
-            location.reload();
-        },
-        error: function (err) {
-            errorHandler(err, "Only authorized users can update task status!");
-        }
-    })
-}
-

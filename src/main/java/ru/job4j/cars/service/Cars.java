@@ -26,6 +26,10 @@ public class Cars {
         return Cars.Lazy.INST;
     }
 
+    public static Logger getLogger() {
+        return LOG;
+    }
+
     public void saveAdvertisement(final Advertisement ad) throws SQLException {
         try {
             ad.setCreated(new Date());

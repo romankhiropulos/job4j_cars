@@ -2,91 +2,31 @@ $(document).ready(function () {
     loadFieldsData();
 });
 
-// $('form#adFormData').submit(function (e) {
 $(document).on('submit', '#adFormData', function (event) {
     event.stopPropagation();
     event.preventDefault();
     let formData = new FormData();
     let filePhoto = $('#adFilePhotoName')[0].files[0];
-
-    let valid = false;
     let adsFields = getAdsInputData();
-    valid = validateAdInput(adsFields);
+    let valid = validateAdInput(adsFields);
     if (valid) {
         let ad = prepareNewAd(adsFields);
-
-        formData.append('adPhoto', filePhoto);
         let strAd = JSON.stringify(ad);
         formData.append("adFields", strAd);
-
-        for (var [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
-    }
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "ad.do");
-    xhr.send(formData);
-
-    // $.ajax({
-    //     url: 'http://localhost:8080/job4j_cars/ad.do',
-    //     type: 'POST',
-    //     contentType: false,
-    //     data: ({
-    //         // description: description,
-    //         advertisement: formData,
-    //     }),
-    //     cache: false,
-    //     processData: false,
-    //     success: function (data) {
-    //         alert(data)
-    //     },
-    // });
-});
-
-function createAd() {
-    let valid = false;
-    let adsFields = getAdsInputData();
-    valid = validateAdInput(adsFields);
-    if (valid) {
-        let ad = prepareNewAd(adsFields);
-        let strAd = JSON.stringify(ad);
-        $.ajax({
-            type: "POST",
-            url: 'http://localhost:8080/job4j_cars/ad.do',
-            data: ({
-                // description: description,
-                advertisement: strAd,
-            }),
-            success: function () {
-                alert("Объявление опубликовано");
-                uploadPhoto();
+        formData.append('adPhoto', filePhoto);
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "ad.do");
+        xhr.send(formData);
+        xhr.onload = function() {
+            if (xhr.status !== 200) {
+                alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+            } else {
+                alert(`Новое объявление успешно создано!`);
                 window.location.replace("index.html");
-            },
-            error: function (err) {
-                errorHandler(
-                    err, "Только авторизованные пользователи могут опубликовать объявление!"
-                );
-                valid = false;
             }
-        })
+        };
     }
-
-    return valid;
-}
-
-function uploadPhoto() {
-    // $(function() {
-    $('#adFilePhotoName').ajaxForm({
-        success: function (msg) {
-            alert("File has been uploaded successfully");
-        },
-        error: function (msg) {
-            $("#upload-error").text("Couldn't upload file");
-        }
-    });
-    // });
-}
+});
 
 function getAdsInputData() {
     let brand = $("#selectBrand").val();
@@ -155,11 +95,6 @@ function loadFieldsData() {
         loadSelectionList(respData.models, '#selectModel');
         loadSelectionList(respData.engines, '#selectEngine');
         loadSelectionList(respData.cities, '#selectCity');
-
-        // $('.js-ads-type').val(data.fields.adsType.id);
-        // $('.js-user').val(data.user.id);
-        // $('select').formSelect();
-        // $('.js-add-next').prop("disabled", false);
     }).fail(function (err) {
         errorHandler(err);
     });
