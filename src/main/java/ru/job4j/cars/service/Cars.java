@@ -7,6 +7,7 @@ import ru.job4j.cars.persistence.AdRepository;
 import ru.job4j.cars.persistence.HbmStorage;
 import ru.job4j.cars.persistence.Storage;
 
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -153,7 +154,7 @@ public class Cars {
         fieldsData.put("engines", engines);
 
         List<Transmission> transmissions =
-                                (List<Transmission>) HbmStorage.getInstance().getAllTransmissions();
+                (List<Transmission>) HbmStorage.getInstance().getAllTransmissions();
         fieldsData.put("transmissions", transmissions);
 
         return fieldsData;
@@ -162,30 +163,35 @@ public class Cars {
     public Collection<Advertisement> getAdsWithFilter(String filter, int brandId) throws SQLException {
         List<Advertisement> ads = null;
         filter = "".equals(filter) ? null : filter;
-        if (Objects.nonNull(filter) && brandId == 0) {
-            switch (filter) {
-                case "lastDayFilter":
-                    ads = (List<Advertisement>) AdRepository.getInstance().getAdsByLastDay();
-                    break;
-                case "withPhotoFilter":
-                    ads = (List<Advertisement>) AdRepository.getInstance().getAdsByPhoto();
-                    break;
-                default:
+        try {
+            if (Objects.nonNull(filter) && brandId == 0) {
+                switch (filter) {
+                    case "lastDayFilter":
+                        ads = (List<Advertisement>) AdRepository.getInstance().getAdsByLastDay();
+                        break;
+                    case "withPhotoFilter":
+
+                        ads = (List<Advertisement>) AdRepository.getInstance().getAdsWithPhoto();
+                        break;
+                    default:
+                }
+            } else if (Objects.isNull(filter) && brandId != 0) {
+                ads = (List<Advertisement>) AdRepository.getInstance().getAdsByBrand(brandId);
+            } else if (Objects.nonNull(filter) && brandId != 0) {
+                switch (filter) {
+                    case "lastDayFilter":
+                        ads = (List<Advertisement>) AdRepository.getInstance()
+                                .getAdsByLastDayAndBrand(brandId);
+                        break;
+                    case "withPhotoFilter":
+                        ads = (List<Advertisement>) AdRepository.getInstance()
+                                .getAdsWithPhotoAndByBrand(brandId);
+                        break;
+                    default:
+                }
             }
-        } else if (Objects.isNull(filter) && brandId != 0) {
-            ads = (List<Advertisement>) AdRepository.getInstance().getAdsByBrand(brandId);
-        } else if (Objects.nonNull(filter) && brandId != 0) {
-            switch (filter) {
-                case "lastDayFilter":
-                    ads = (List<Advertisement>) AdRepository.getInstance()
-                                                          .getAdsByLastDayAndBrand(brandId);
-                    break;
-                case "withPhotoFilter":
-                    ads = (List<Advertisement>) AdRepository.getInstance()
-                                                          .getAdsByPhotoAndBrand(brandId);
-                    break;
-                default:
-            }
+        } catch (URISyntaxException exception) {
+            Cars.getLogger().error("URI Exception: " + exception.getMessage(), exception);
         }
         return ads;
     }

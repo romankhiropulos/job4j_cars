@@ -29,7 +29,9 @@ public class CarPhotoLoadServlet extends HttpServlet {
                 downloadFile = new File(folderName + File.separator + "notfound.png");
             }
             resp.setContentType("application/octet-stream");
-            resp.setHeader("Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\"");
+            resp.setHeader(
+                    "Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\""
+            );
             try (FileInputStream stream = new FileInputStream(downloadFile)) {
                 resp.getOutputStream().write(stream.readAllBytes());
             } catch (IOException ioException) {

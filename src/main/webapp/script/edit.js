@@ -13,11 +13,13 @@ $(document).on('submit', '#adFormData', function (event) {
         let ad = prepareNewAd(adsFields);
         let strAd = JSON.stringify(ad);
         formData.append("adFields", strAd);
-        formData.append('adPhoto', filePhoto);
+        if (filePhoto !== undefined) {
+            formData.append('adPhoto', filePhoto);
+        }
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "ad.do");
         xhr.send(formData);
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status !== 200) {
                 alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
             } else {
@@ -41,12 +43,10 @@ function getAdsInputData() {
     let power = $("#adPower").val();
     let size = $("#adSize").val();
     let description = $("#adDescription").val();
-    let photo = $("#adFilePhotoName").val();
     return new Map([["model", model], ["bodyType", bodyType], ["brand", brand],
         ["engine", engine], ["transmission", transmission], ["city", city],
         ["price", price], ["year", year], ["mileage", mileage],
-        ["power", power], ["size", size], ["description", description],
-        ["photo", photo]]);
+        ["power", power], ["size", size], ["description", description]]);
 }
 
 function validateAdInput(fields) {
@@ -75,7 +75,6 @@ function prepareNewAd(adsFields) {
             "bodyType": {"id": adsFields.get("bodyType")},
             "transmission": {"id": adsFields.get("transmission")},
         },
-        "photo": {"name": adsFields.get("photo")},
         "city": {"id": adsFields.get("city")},
         "price": adsFields.get("price"),
         "description": adsFields.get("description"),

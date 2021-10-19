@@ -10,9 +10,7 @@ import org.hibernate.query.Query;
 import ru.job4j.cars.entity.*;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -32,7 +30,6 @@ public class HbmStorage implements Storage, AutoCloseable {
             + "join fetch cr.engine eng "
             + "join fetch cr.bodyType bt "
             + "join fetch cr.transmission trm "
-            + "left join fetch ad.photo ph "
             + "join fetch ad.city ci "
             + "left join fetch cr.drivers drs ";
 

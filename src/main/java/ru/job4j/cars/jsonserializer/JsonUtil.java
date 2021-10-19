@@ -13,7 +13,6 @@ public class JsonUtil {
             .registerTypeAdapter(Model.class, new ModelSerializer())
             .registerTypeAdapter(BodyType.class, new BodyTypeSerializer())
             .registerTypeAdapter(Engine.class, new EngineTypeSerializer())
-            .registerTypeAdapter(CarPhoto.class, new PhotoSerializer())
             .registerTypeAdapter(Transmission.class, new TransmissionSerializer())
             .registerTypeAdapter(Car.class, new CarSerializer())
             .registerTypeAdapter(User.class, new UserSerializer())

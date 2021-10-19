@@ -1,5 +1,7 @@
 package ru.job4j.cars.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -8,7 +10,9 @@ import java.util.Objects;
 public class Advertisement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "advertisement_id_seq")
+    @GenericGenerator(name = "advertisement_id_seq", strategy = "increment")
+    @Column(name = "id")
     private int id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -31,10 +35,6 @@ public class Advertisement {
     private String description;
 
     private boolean sold;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "car_photo_id")
-    private CarPhoto photo;
 
     public Advertisement() {
 
@@ -102,14 +102,6 @@ public class Advertisement {
 
     public void setSold(boolean sold) {
         this.sold = sold;
-    }
-
-    public CarPhoto getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(CarPhoto photo) {
-        this.photo = photo;
     }
 
     @Override

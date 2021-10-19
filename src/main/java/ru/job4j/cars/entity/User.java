@@ -1,5 +1,7 @@
 package ru.job4j.cars.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,9 @@ import java.util.List;
 public class User implements Comparable<User> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "j_user_id_seq")
+    @GenericGenerator(name = "j_user_id_seq", strategy = "increment")
+    @Column(name = "id")
     private int id;
 
     private String login;

@@ -6,7 +6,7 @@ function User(login, password) {
 $(document).ready(function () {
     let curLogin = sessionStorage.getItem('curUser');
     if (curLogin !== null) {
-        $('#curLogin').after(`<p><a href="auth.html">${curLogin}</a></p>`);
+        $('#curLogin').after(`<a href="auth.html">${curLogin}</a>`);
     } else {
         $('#curLogin').after(`<a href="auth.html">Авторизация</a> | <a href="reg.html">Регистрация</a>`);
     }

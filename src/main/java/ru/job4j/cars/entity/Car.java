@@ -1,5 +1,7 @@
 package ru.job4j.cars.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +10,9 @@ import java.util.Set;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "car_id_seq")
+    @GenericGenerator(name = "car_id_seq", strategy = "increment")
+    @Column(name = "id")
     private int id;
 
     private int year;

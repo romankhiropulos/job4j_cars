@@ -1,8 +1,5 @@
 package ru.job4j.cars.controller;
 
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.job4j.cars.entity.Advertisement;
 import ru.job4j.cars.jsonserializer.JsonUtil;
 import ru.job4j.cars.service.Cars;
@@ -17,7 +14,6 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -34,7 +30,7 @@ public class AdvertisementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+                                        throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
         String adFieldsStr;

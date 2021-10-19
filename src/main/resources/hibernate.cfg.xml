@@ -28,7 +28,6 @@
         <mapping class="ru.job4j.cars.entity.Engine" />
         <mapping class="ru.job4j.cars.entity.BodyType" />
         <mapping class="ru.job4j.cars.entity.City" />
-        <mapping class="ru.job4j.cars.entity.CarPhoto" />
 
         <mapping class="ru.job4j.cars.mtom.Book" />
         <mapping class="ru.job4j.cars.mtom.Author" />
