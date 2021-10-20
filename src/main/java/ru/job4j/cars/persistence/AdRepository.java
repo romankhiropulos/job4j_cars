@@ -7,9 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.entity.Advertisement;
-import ru.job4j.cars.service.Cars;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.sql.SQLException;

@@ -1,6 +1,6 @@
 $(document).ready(function showAd() {
         let curAdId = sessionStorage.getItem('curAdId');
-        let ads = JSON.parse(sessionStorage.getItem('ads')); // change to GET request
+        let ads = JSON.parse(sessionStorage.getItem('ads'));
         let ad = ads.find(ad => ad.id === Number(curAdId));
         let adData = '';
         let figcaptionText = ad.car.brand.name + " " + ad.car.model.name + ", " + ad.car.year;
