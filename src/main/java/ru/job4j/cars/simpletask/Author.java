@@ -1,10 +1,12 @@
-package ru.job4j.cars.mtom;
+package ru.job4j.cars.simpletask;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "book")
-public class Book {
+@Table(name = "author")
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,10 +14,13 @@ public class Book {
 
     private String name;
 
-    public static Book of(String name) {
-        Book book = new Book();
-        book.name = name;
-        return book;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Book> books = new ArrayList<>();
+
+    public static Author of(String name) {
+        Author author = new Author();
+        author.name = name;
+        return author;
     }
 
     public int getId() {
@@ -34,6 +39,14 @@ public class Book {
         this.name = name;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -43,18 +56,22 @@ public class Book {
             return false;
         }
 
-        Book book = (Book) o;
+        Author author = (Author) o;
 
-        if (id != book.id) {
+        if (id != author.id) {
             return false;
         }
-        return name.equals(book.name);
+        if (!name.equals(author.name)) {
+            return false;
+        }
+        return books.equals(author.books);
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + name.hashCode();
+        result = 31 * result + books.hashCode();
         return result;
     }
 }

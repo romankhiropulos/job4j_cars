@@ -29,8 +29,9 @@
         <mapping class="ru.job4j.cars.entity.BodyType" />
         <mapping class="ru.job4j.cars.entity.City" />
 
-        <mapping class="ru.job4j.cars.mtom.Book" />
-        <mapping class="ru.job4j.cars.mtom.Author" />
+        <mapping class="ru.job4j.cars.simpletask.Book" />
+        <mapping class="ru.job4j.cars.simpletask.Author" />
+        <mapping class="ru.job4j.cars.simpletask.Candidate" />
 
     </session-factory>
 </hibernate-configuration>
