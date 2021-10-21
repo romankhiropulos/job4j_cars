@@ -18,14 +18,6 @@ public class CandidateStorage implements AutoCloseable {
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
 
-    private static final class Lazy {
-        private static final CandidateStorage INST = new CandidateStorage();
-    }
-
-    public static CandidateStorage getInstance() {
-        return CandidateStorage.Lazy.INST;
-    }
-
     private static final int ID_1 = 1;
     private static final int ID_2 = 2;
     private static final int ID_3 = 3;
@@ -37,20 +29,32 @@ public class CandidateStorage implements AutoCloseable {
     public static final Candidate CANDIDATE_1;
     private static final Candidate CANDIDATE_2;
     private static final Candidate CANDIDATE_3;
+    private static final JobStore JOB_STORE;
+    private static final Vacancy VACANCY_1;
+    private static final Vacancy VACANCY_2;
 
     static {
         CANDIDATE_1 = Candidate.of(ID_1, NAME_1, 2, 250);
         CANDIDATE_2 = Candidate.of(ID_2, NAME_2, 3, 300);
         CANDIDATE_3 = Candidate.of(ID_3, NAME_3, 1, 200);
+        JOB_STORE   = JobStore.of(1, "StorageWithJobs");
+        VACANCY_1   = Vacancy.of(1, "Java Developer", "Writing Java CRUDs");
+        VACANCY_2   = Vacancy.of(2, "ABAP Developer", "Writing ABAP CRUDs");
+        JOB_STORE.addVacancy(VACANCY_1);
+        JOB_STORE.addVacancy(VACANCY_2);
+        CANDIDATE_2.setJobStore(JOB_STORE);
+    }
+
+    public static CandidateStorage getInstance() {
+        return CandidateStorage.Lazy.INST;
     }
 
     public static void main(String[] args) throws Exception {
         try {
             getInstance().saveCandidate(CANDIDATE_1);
-            getInstance().saveCandidate(CANDIDATE_2);
             getInstance().saveCandidate(CANDIDATE_3);
             getInstance().getAllCandidates().forEach(System.out::println);
-            System.out.println(getInstance().getCandidateById(ID_2));
+            System.out.println(getInstance().getCandidateById(ID_3));
             System.out.println(getInstance().getCandidateByName(NAME_1));
             CANDIDATE_1.setName("MikeTyson");
             CANDIDATE_1.setExperience(4);
@@ -59,6 +63,12 @@ public class CandidateStorage implements AutoCloseable {
             System.out.println(CANDIDATE_1);
             getInstance().deleteCandidate(ID_1);
             getInstance().getAllCandidates().forEach(System.out::println);
+
+            getInstance().saveCandidate(CANDIDATE_2);
+            Candidate candidate = getInstance().getCandidateById(ID_2);
+            System.out.println(candidate);
+            System.out.println(candidate.getJobStore());
+            System.out.println(candidate.getJobStore().getVacancies());
         } catch (Exception exception) {
             exception.printStackTrace();
         } finally {
@@ -66,6 +76,10 @@ public class CandidateStorage implements AutoCloseable {
             CandidateStorage.getInstance().deleteCandidate(ID_2);
             CandidateStorage.getInstance().deleteCandidate(ID_3);
         }
+    }
+
+    private static final class Lazy {
+        private static final CandidateStorage INST = new CandidateStorage();
     }
 
     public Candidate saveCandidate(Candidate candidate) throws SQLException {
@@ -100,8 +114,11 @@ public class CandidateStorage implements AutoCloseable {
     public Candidate getCandidateById(int id) throws SQLException {
         return tx(
                 session -> session.createQuery(
-                        "from Candidate c where c.id = :c_id", Candidate.class
-                ).setParameter("c_id", id).uniqueResult()
+                        "select distinct can from Candidate can "
+                                + "join fetch can.jobStore js "
+                                + "join fetch js.vacancies v "
+                                + "where can.id = :canId", Candidate.class
+                ).setParameter("canId", id).uniqueResult()
         );
     }
 

@@ -32,6 +32,8 @@
         <mapping class="ru.job4j.cars.simpletask.Book" />
         <mapping class="ru.job4j.cars.simpletask.Author" />
         <mapping class="ru.job4j.cars.simpletask.Candidate" />
+        <mapping class="ru.job4j.cars.simpletask.JobStore" />
+        <mapping class="ru.job4j.cars.simpletask.Vacancy" />
 
     </session-factory>
 </hibernate-configuration>

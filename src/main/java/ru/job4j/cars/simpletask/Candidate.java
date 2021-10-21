@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "candidate")
 public class Candidate {
 
     @Id
@@ -16,6 +15,9 @@ public class Candidate {
 
     private int salary;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private JobStore jobStore;
+
     public static Candidate of(int id, String name, int experience, int salary) {
         Candidate candidate = new Candidate();
         candidate.id = id;
@@ -23,6 +25,14 @@ public class Candidate {
         candidate.experience = experience;
         candidate.salary = salary;
         return candidate;
+    }
+
+    public JobStore getJobStore() {
+        return jobStore;
+    }
+
+    public void setJobStore(JobStore jobStore) {
+        this.jobStore = jobStore;
     }
 
     public int getId() {
