@@ -47,9 +47,6 @@ public class HbmStorage implements Storage, AutoCloseable {
 
     private static final String SELECT_BRANDS = "select distinct br from Brand br ";
 
-    private static final String SELECT_BRANDS_WITH_MODELS = "select distinct br from Brand br "
-            + "join fetch br.model mod";
-
     private static final class Lazy {
         private static final Storage INST = new HbmStorage();
     }

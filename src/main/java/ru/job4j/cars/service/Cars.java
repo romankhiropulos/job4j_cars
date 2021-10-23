@@ -111,12 +111,13 @@ public class Cars {
         return user;
     }
 
-    public User findUserByLoginAndPassword(String login, String password) {
+    public User findUserByLoginAndPassword(String login, String password) throws SQLException {
         User user = null;
         try {
             user = HbmStorage.getInstance().findUserByLoginAndPassword(login, password);
         } catch (SQLException exception) {
             LOG.error("SQL Exception: " + exception.getMessage(), exception);
+            throw exception;
         }
         return user;
     }
@@ -160,7 +161,7 @@ public class Cars {
         return fieldsData;
     }
 
-    public Collection<Advertisement> getAdsWithFilter(String filter, int brandId) throws SQLException {
+    public Collection<Advertisement> getAdsWithFilter(String filter, int brandId) throws Exception {
         List<Advertisement> ads = null;
         filter = "".equals(filter) ? null : filter;
         try {
@@ -191,7 +192,8 @@ public class Cars {
                 }
             }
         } catch (URISyntaxException exception) {
-            Cars.getLogger().error("URI Exception: " + exception.getMessage(), exception);
+            LOG.error("URI Exception: " + exception.getMessage(), exception);
+            throw exception;
         }
         return ads;
     }

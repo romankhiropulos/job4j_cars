@@ -29,12 +29,12 @@ public class AdViewServlet extends HttpServlet {
             PrintWriter writer = resp.getWriter();
             writer.write(jsonResponse);
             writer.flush();
-        } catch (SQLException e) {
-            PrintWriter writer = resp.getWriter();
-            writer.println("Sorry, server has a problem!");
-            writer.flush();
+        } catch (SQLException exception) {
+            Cars.getLogger().error("SQL exception: " + exception.getMessage(), exception);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Cars.getLogger().error(exception.getMessage(), exception);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

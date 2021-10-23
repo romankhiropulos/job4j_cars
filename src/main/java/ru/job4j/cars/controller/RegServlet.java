@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class RegServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+                                           throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
         try {
@@ -37,9 +37,8 @@ public class RegServlet extends HttpServlet {
                 writer.flush();
             }
         } catch (SQLException exception) {
-            PrintWriter writer = resp.getWriter();
-            writer.println("Data base problem");
-            writer.flush();
+            Cars.getLogger().error("SQL exception: " + exception.getMessage(), exception);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }
