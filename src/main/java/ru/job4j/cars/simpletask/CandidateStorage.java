@@ -7,6 +7,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.criteria.internal.predicate.NegatedPredicateWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.cars.service.Cars;
 
 import java.sql.SQLException;
@@ -19,6 +21,8 @@ public class CandidateStorage implements AutoCloseable {
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
+
+    private static final Logger LOG = LoggerFactory.getLogger(CandidateStorage.class.getName());
 
     public static CandidateStorage getInstance() {
         return CandidateStorage.Lazy.INST;
@@ -61,8 +65,7 @@ public class CandidateStorage implements AutoCloseable {
             System.out.println(candidate.getJobStore());
             System.out.println(candidate.getJobStore().getVacancies());
         } catch (Exception exception) {
-            Cars.getLogger().error(exception.getMessage(), exception);
-            exception.printStackTrace();
+            LOG.error(exception.getMessage(), exception);
         } finally {
             CandidateStorage.getInstance().deleteCandidate(id1);
             CandidateStorage.getInstance().deleteCandidate(id2);
