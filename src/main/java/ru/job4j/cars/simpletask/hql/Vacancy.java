@@ -1,4 +1,4 @@
-package ru.job4j.cars.simpletask;
+package ru.job4j.cars.simpletask.hql;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

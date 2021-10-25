@@ -1,4 +1,4 @@
-package ru.job4j.cars.simpletask;
+package ru.job4j.cars.simpletask.bookauthor;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

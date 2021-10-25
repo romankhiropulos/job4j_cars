@@ -1,4 +1,4 @@
-package ru.job4j.cars.simpletask;
+package ru.job4j.cars.simpletask.hql;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,10 +6,8 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.criteria.internal.predicate.NegatedPredicateWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.cars.service.Cars;
 
 import java.sql.SQLException;
 import java.util.Collection;
