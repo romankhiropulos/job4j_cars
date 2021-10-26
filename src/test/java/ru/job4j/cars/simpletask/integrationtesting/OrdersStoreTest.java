@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -83,8 +84,8 @@ public class OrdersStoreTest {
         Order newOrder = new Order(1, "Jenn", "Very good cat", new Timestamp(new Date().getTime()));
         store.save(oldOrder);
         store.updateOrder(newOrder);
-        assertThat(store.findById(1).getName(), is("Jenn"));
-        assertThat(store.findById(1).getDescription(), is("Very good cat"));
+        assertThat(Objects.requireNonNull(store.findById(1).getName()), is("Jenn"));
+        assertThat(Objects.requireNonNull(store.findById(1).getDescription()), is("Very good cat"));
     }
 
     @Test
@@ -109,7 +110,7 @@ public class OrdersStoreTest {
         store.save(orderOne);
         store.save(orderTwo);
         store.save(orderThree);
-        Order order =  store.findById(2);
+        Order order = store.findById(2);
         assertThat(order.getId(), is(2));
         assertThat(order.getDescription(), is("Very good cat"));
     }
